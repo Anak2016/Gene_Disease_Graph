@@ -1,0 +1,4 @@
+# ignore all of the dataset (error: file too large)
+dataset
+dataset/Pubannotator/pubannotator.tsv
+dataset/Pubannotator/*

@@ -1,0 +1,228 @@
+> Chronic Obstructive Pulmonary Disease
+
+(number) (number or words) (number) (number) (number#number) (words anf the rest of the sentence)
+=======================
+== useful INFO
+=======================
+common cols
+>pmid
+>DiseaseId
+>geneID
+======================
+=== Done
+======================
+> create unique geneId, geneSymbol, diseaseId, diseaseName, diseaseClass, pmid, source (all_ge ne_disease_pmid_associations.py)
+    excluded: DSI, DPI, diseaseType, diseaseSemanticType, score, EI, YearInitial, YearFinal
+    >1136908 instances
+
+    uniq value of the following columns
+    geneId, geneSymbol, diseaseId, diseaseName, diseaseClass, pmid,   source
+    16367   16363       9487       9695         835           398083  14
+
+>create unique  pmid, geneId, diseaseId (Pubannotator.py)
+    excluded: section, sentence_number, geneoffset, diseaseoffsets, sentence
+    :Does geneId, diseaseId  used in both files have the same standard? If not figure out how to link them
+    :2234 instances
+    :1668 uniq_instances
+    :pmid = 698, geneID = 512, geneID = 117 (uniq)
+    Question:
+        What is gene off set?
+
+=======================
+=== Doing
+=======================
+> community detection steps
+    :plot bipartite graph (the graph allow for disconnected subgraph)
+        steps
+        >get seperated bipartite graph
+        >convert to adjacency matrix
+        >use igrpah in r to do more intensive work
+            :igraph is more flexible
+        >create program so that
+            :there is no need to run both in r and in python
+
+    :get pattern of common node edges structure.
+            > design a generic wya fo detect specific pattern in the grpah?
+                read: "Spectral measures of bipartivity in complex networks"
+    :get disconnected graph
+    :use method availble in
+        netwokx.algorithms.bipartite
+
+>report charcteristic
+    :create method to support it
+        >> desgin it carefully
+
+    :what should I report?
+        :Graph degree
+        :clustering
+        :centrality
+        :adjacency matrix?
+            >(generate it then it would be very easy to transfer to differen platform
+        :clique?
+            >number of clique, max clique
+
+>detect bipartite of every pair of cols.
+    >detect community of it
+    url: https://networkx.github.io/documentation/stable/reference/algorithms/community.html
+    3 criteria
+    Bipartite
+    > network measure
+        *:degree distribution
+            eg Poisson vs Power-law
+            >plot freqeuncey vs Degree
+            >plot Cumulative Distritubtion
+        :number of disconnected-component
+        *:clustering
+            >triangles
+            >transitivity (?)
+            >clustring
+
+    > network Centrality
+        *:degree Centrl
+        *: eigenvector Ventral
+        :between Centrl
+            >(probly we don't need it because it's bipartite)
+        :Closeness Centrl (
+            >do i need it for bipartite?
+            > I get a feeling that it will be very similar to degree central
+        >Group Centrality?
+            >(I doubt that we gonna need it at all)
+    > node similarity
+        >> similarity of nodes in the sme group
+        :common nodes
+        :jaccard's coefficient
+        :RootedPageRank
+        :SimRAnk
+        >>represent similarity in lower dimension
+            :lower rank approximation
+            eg SVD
+    >network community detection
+        :node-centric community
+        :Group-centric community
+            :MDS
+        :network-centric community
+            :k-clique, k-club
+            :k-plex, k-core ( probly not)
+            >>cut-minimization
+                :karger, ford-fulkerson
+    > link-prediction
+        >collaborated-filetering
+        >supervised learning (ML)
+    > or just use existed community detection available
+        >  python-louvain on pypi
+
+        > Generators
+            : functions for generating grphs with commnity structure
+        :K-clique
+        :Partitions via centrality measures
+        :Validating partitions (?)
+        :label propagation (?)
+        :Bipartitions (?)
+            >what is the piont of this?
+
+
+
+
+    full graph
+    > network measure
+        :degree distriubtion
+        :number of disconnected-component
+        :Diameters
+        :edge Density
+        :Clustering Coefficient
+        :shortest Path
+
+    > netowkr Centrality
+        :degree
+    > node similarity
+        :common neight
+        :Jaccard coeff
+        :Katz
+    > or just use existed community detection available
+        :or api
+
+
+> disease_naem in gene_disease_5000 has different columns
+    > columns of disease Name is not correct.
+        >>( lets ignore it for now)
+        >>figure out a way to deal with this embiguity
+
+    Q: is Pradoxical in DiseaseType or diseaseName?
+        diseaseType = "Paradoxical disease"
+    > how to separate value of DiseaseType to value of diseaseName?
+        :some of them is separated by "," some of them is separated by " "
+            >> how to use regularexpression with it tho ?
+
+
+> link diseaseId and geneId from PubAnnotator to all_gene_disease_pmid_associations
+    >figure the differnet between val of col of the same name
+    :geneId of the two file followed different convention
+        >>undetstnd what is the different between the two convention
+
+> use NER to collect disease Name or Gene Name mention in sentence
+    :Then search these new collection of  disease to Gene in PubAnnotator
+        col = "sentence" to get even more number of gene, disease
+        >> save number of iteration to be uses as path length from COPD later on
+
+    :repeat the process until no new info is collected
+
+========================
+== ToDo
+========================
+>All gene disease pmid assoiciations dataset
+##ToDo
+1. detect geneSymbol, geneID, diseaseID, DPI(?), DSI(?), pmid(?) for diseaseName = COPD, and collect them
+We may need DPI, DSI, pmid to detect in "sentence" of Pubannotator dataset
+
+>Pubannotator dataset
+##ToDo
+1. detect geneID and diseaseID for COPD, and collect them
+2. For all instance retreived from #1, Find gene, disease that are mention in "sentence" col, and collect them
+
+#HERE 3. For all instance retreive from #2, Find gene, disease that are mentioned in "sentence" col, and collect them.
+4 repeat, until no new relationship between disease-gene can be identified
+5. We may used number of instances one entity takes to be mentioned in "sentence" of other. as shortest path between the two entity.
+Combine the two
+
+Combine/Concat both above result, into one Matrix
+
+======================
+== data info
+======================
+> The information is separated by tab. When field are concatenated, they are separated by";"
+
+>all_gene_disease_pmid_associations.tsv.gz		=> All Gene-Disease-PMID associations in DisGeNET
+
+The columns in the files are:
+0. geneId 		-> Entrez Gene Identifier
+1. geneSymbol	-> Official Gene Symbol
+2. DSI		-> The Disease Specificity Index for the gene
+3. DPI		-> The Disease Pleiotropy Index for the gene
+4. diseaseId 	-> UMLS concept unique identifier
+5. diseaseName 	-> Name of the disease
+6. diseaseType  	-> The DisGeNET disease type: disease, phenotype and group
+7. diseaseClass	-> The MeSH disease class(es)
+8. diseaseSemanticType	-> The UMLS Semantic Type(s) of the disease
+9. score		-> DisGENET score for the Gene-Disease association
+10. EI		-> The Evidence Index for the Gene-Disease association
+11. YearInitial	-> First time that the Gene-Disease association was reported
+12. YearFinal	-> Last time that the Gene-Disease association was reported
+13. pmid		-> Publication reporting the Gene-Disease association
+14. source		-> Original source reporting the Gene-Disease association
+
+>ToDo
+1. detect geneSymbol, geneID, diseaseID, DPI(?), DSI(?), pmid(?) for diseaseName = COPD
+
+>PubAnnotator
+pmid
+section
+sentence_number
+geneId
+geneoffset
+diseaseId
+deseaseoffsets
+sentence
+
+>ToDO
+1. detect geneID and diseaseID for COPD
+2. detect anything related to COPD in sentence that is not already detect by #1

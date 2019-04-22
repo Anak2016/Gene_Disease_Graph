@@ -1,0 +1,16 @@
+>list all edges
+
+for e in g.es:
+    print(e.tuple)
+exit()
+
+>get attribute name
+    >> edges = g.es.attribute_names()
+    >> node = g.vs.attribute_names()
+
+> get attribute valuue
+    eg g.vs["color"]
+
+> get vertex
+    > g.vs[index][attribute_name]
+    eg g.vs[0]['label']
