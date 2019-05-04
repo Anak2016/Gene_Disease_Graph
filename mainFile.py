@@ -3,9 +3,9 @@ from all_gene_disease_pmid_associations import gene_disease_pmid as gene_disease
 def readFile(file_name):
     dictionary = {}
     with open(file_name, "r") as f:
-        for line in f.readlines():
-            # print(line)
-            val_list = line.split(",")
+        for val_list in f.readlines():
+            # print(val_list)
+            val_list = val_list.split(",")
             key = val_list[0]
             val = val_list[1:]
             dictionary[key] = val

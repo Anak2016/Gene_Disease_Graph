@@ -7,6 +7,10 @@ import parameters as param
 import itertools
 from itertools import combinations
 from networkx.algorithms import community, bipartite
+from networkx.algorithms.community.centrality import girvan_newman
+from networkx.algorithms.community.kclique import k_clique_communities
+from collections import Counter
+
 
 class COPD_grpah:
     def __init__(self,file_name, keys_name, num_val):
@@ -23,6 +27,7 @@ class COPD_grpah:
 
         self.dict = temp
 
+    # HERE>> fix so tht setup() also setup for Graph
     def setup(self):
         self.keys_name = [key.replace(" ", "") for key in keys_name]
         self.num_val = num_val
@@ -96,8 +101,8 @@ class COPD_grpah:
         '''
             file must be separated by ','
                 >first word = key
-                >non-first word of the same line = value
-                >same line = same value of the same key
+                >non-first word of the same val_list = value
+                >same val_list = same value of the same key
         :param file_name:
             file_name: "file_name.txt"
         :return:
@@ -105,44 +110,159 @@ class COPD_grpah:
         '''
         dictionary = {}
         with open(file_name, "r") as f:
-            for line in f.readlines():
-                # print(line)
-                val_list = line.split(",")
+            for val_list in f.readlines():
+                # print(val_list)
+                val_list = val_list.split(",")
                 key = val_list[0]
                 val = val_list[1:]
                 dictionary[key] = val
         return dictionary
 
-    def getGraph_Degree_dist(self, G, plot = False):
-        return G.degree
+    def getGraph_Degree_dist(self, G, verbose = False, plot = False):
+        '''
 
-    def getGraph_Clustering(self, G):
-        from networkx.algorithms.approximation import average_clustering
-        return average_clustering(G, trials = 5)
+        :param G: return list of degree distribution
+        :param verbose:
+        :param plot:
+        :return:
+        '''
+        degree_list = [G.degree(n) for n in G.nodes()]
+        if verbose:
+            print("get degree distribution of G: ")
+            uniq_degree = [key for key in Counter(degree_list).keys()]
+            uniq_freq   = [val for val in Counter(degree_list).values()]
 
-    # def getGraph_Centrality(self, algorithms_list):
-        # return
+            for key, val in zip(uniq_degree, uniq_freq):
+                print("degree={:d} has freq ={:d}".format(key,val))
+        if plot:
+            plt.hist(degree_list)
+            plt.show()
 
-    # def getGraph_shortest_path(self):
-    # def getIsolated_nodes(self)
+    def getGraph_Clustering(self, G, plot= False , verbose = False):
+        ###############3
+        ## add report for average clustering and triangle clustering
+        ###############
+        triangle           = nx.triangles(G) #triangle
+        transitivity       = nx.transitivity(G) #transitibity
+        clustering         = nx.clustering(G) #clustering
+        average_clustering = nx.average_clustering(G) #
 
-    # def report_Graph_properties(self,
-    #                     `        degree        = None,
-    #                             clustering    = None,
-    #                             centrality    = None,
-    #                             shortest_path = None):
-    #     self.getGraph_Degree_dist()
-    #     self.getGraph_Clustering()
-    #     self.getGraph_Centrality()
-    #     self.getGraph_shortest_path()
+        # the probability that two neighbors of node v share a common neighbor different from v
+        square_clustering   = nx.square_clustering(G)
 
-    # def graph_link_prediction(self):
-    # def grpah_link_analysis(self): #pagerank
-    # def graph_cut(self, algorithms_list):
-    # def graph_centrality_partition(self): #girvan_newman algorithm
+        # number of triangle an edges is pariticipated in
+        generalized_degree = nx.generalized_degree(G)
 
-    # def getGraph_disconnected(self, vertices, edges):
+        algo_name = nx.square_clustering.__name__
 
+        x = [val for key,val in square_clustering.items()]
+        uniq_coeff_val = Counter(x).keys()
+        uniq_coeff_freq = Counter(x).values()
+
+        if verbose:
+            print("algo = {:s}".format(algo_name))
+            print("total count = {:d}".format(len(x)))
+            print("zero value clutering count = {:d}".format(len(x) - len(uniq_coeff_freq)))
+            print("non zero value clusters are shown below:")
+            for key, val in zip(uniq_coeff_val,uniq_coeff_freq):
+                print("coeff value = {:f}".format(key))
+                print("value count = {:d}".format(val))
+        if plot:
+            print("ploting clustering coeff value")
+            x = [i for i in x if x != 0 ]
+            plt.hist(uniq_coeff_val)
+            plt.ylabel('frequency')
+            plt.xlabel('uniq_coeff_value')
+            plt.title('clustering using algo = "{:s}"'.format(algo_name))
+            plt.show()
+
+    def getDistance_Measure(self, G, verbose = False, plot = False):
+        from networkx.algorithms import diameter, center, eccentricity, periphery, radius
+
+        self.set_subgraph_disconnected(G)
+        disconnected_subgraph_list = self.get_subgraph_disconnected()
+        for subgraph in disconnected_subgraph_list:
+            print("diameter     = {:d}".format(diameter(subgraph)))
+            print("center       = ", center(subgraph))
+            print("eccentricity = ", eccentricity(subgraph))
+            print("    eccentricity:a node v is the maximum distance from v to all other nodes in G.")
+            print("periphery    = ", periphery((subgraph)))
+            print("    periphery   :the set of nodes with eccentricity equal to the diameter.")
+            print("radius       = ", radius((subgraph)))
+            print("    radius      :the minimum eccentricity.")
+
+    def getGraph_Centrality(self, G, verbose = False, plot = False):
+        algo_name = nx.closeness_centrality.__name__
+        print("printing Graph_centrality using algo = {:s}".format(algo_name))
+        print(nx.closeness_centrality(G))
+
+    def set_subgraph_disconnected(self, G):
+        disconnected_graph = list(nx.connected_component_subgraphs(G))
+        disconnected_graph = [(disconnected_graph[i], len(g)) for i, g in enumerate(disconnected_graph)]
+
+        from operator import itemgetter
+        disconnected_graph = sorted(disconnected_graph, key=itemgetter(1), reverse=True)
+        print(disconnected_graph)
+
+        # disconnected_graph = [subgraph1, subgraph2, ....] #where subgraph is of type networkx
+        disconnected_graph = [graph for graph, length in disconnected_graph]
+
+        self.disconnected_graph = disconnected_graph
+    def get_subgraph_disconnected(self):
+        return self.disconnected_graph
+
+    def graph_link_prediction(self, G):
+
+        #useing jarcard to predict link between 2 nodes
+        x = nx.jaccard_coefficient(G)
+        # nx.resource_allocation_index(G)
+        # nx.adamic_adar_index(G)
+        # nx.preferential_attachment(G)
+        # nx.cn_soundarajan_hopcroft(G)
+        # nx.ra_index_soundarajan_hopcroft(G)
+        # nx.within_inter_cluster(G)
+        for i, (u,v, p) in enumerate(x):
+            if i == 50:
+                break
+            # print the first 50
+            print(u, " ", v , "-->", p)
+
+    def graph_cut(self, G):
+        '''
+        :param G: connected component of directed graph
+        :return:
+        '''
+        self.set_subgraph_disconnected(G)
+        disconnected_subgraph_list = self.get_subgraph_disconnected()
+
+        for subgrph in disconnected_subgraph_list:
+            cutset = nx.all_node_cuts(subgrph)
+            print(cutset)
+
+    def graph_link_analysis(self, G):
+        # use pagerank
+        # alpha = Damping parameter; default = 0.85
+        pr = nx.pagerank(G, alpha = 0.9)
+        print(pr)
+
+    #pass in connected graph of the
+    def report_Graph_properties(self, G,
+                                degree_dist        = None,
+                                clustering    = None,
+                                centrality    = None,
+                                shortest_path = None):
+        verbose = True
+        plot = True
+
+        # # need to be disconnected graph
+        # self.getDistance_Measure(G, verbose = verbose, plot = plot)
+        # self.getGraph_Centrality(G, verbose = verbose, plot = plot)
+        # self.getGraph_Clustering(G, verbose = verbose, plot = plot)
+        # self.getGraph_Degree_dist(G, verbose = verbose, plot = plot)
+        # self.graph_link_prediction(G)
+        # self.graph_link_analysis(G)
+        self.graph_cut(G) # G must be directed only
+        # exit()
 
     def displayDict(self,dict):
         '''
@@ -209,7 +329,7 @@ class COPD_grpah:
 
         return df_uniq_vertex
 
-    def createEdges(self):
+    def createEdges(self, selected_col_list = None):
         '''
 
         :return:
@@ -217,46 +337,51 @@ class COPD_grpah:
         '''
         df = self.getDataFrame()
         # for all instance, create edges
-        col_values = self.getDataFrame_col()
         index_value = self.getDataFrame_index()
         edges = []
 
+        # selected_col_list = ['geneId', 'diseaseId']
+        if selected_col_list is None:
+            selected_col_list = self.getDataFrame_col()
+        else:
+            selected_col_list = selected_col_list
+
         for i in index_value:
             #create edges
-            features = df.iloc[i]
+            features = df.iloc[i][selected_col_list]
             features = pd.Series.tolist(features)
             comb_list = [comb for comb in combinations(features,2)]
             edges = edges + comb_list
 
         return set(edges)
 
-    def createBipartite_Edges(self):
+    def createBipartite_Edges(self, selected_keys = None):
         '''
 
         :return:
             edge_pairs_dict: {(pair):list of permutation edges }
         '''
-        keys_pair_list = [list(comb) for comb in combinations(self.getDataFrame_col(), 2)]
-        edges = []
+        df = self.getDataFrame()
+        if selected_keys is None:
+            selected_keys = self.getDataFrame_col()
+        else:
+            selected_keys = selected_keys
+
+        keys_pair_list = [list(comb) for comb in combinations(selected_keys, 2)]
 
         index_list = self.getDataFrame_index()
-
-        df = self.getDataFrame()
-
         #create clique for each each dataFrame_index -> 1 index: many keys
         edge_pairs_dict = {tuple(pair): [] for pair in keys_pair_list}
-        pair_list = [tuple(pair) for pair in keys_pair_list ]
 
         for pair in keys_pair_list:
-            left = df[pair[0]]
-            right = df[pair[1]]
+            # left = df[pair[0]]
+            # right = df[pair[1]]
             for i, index in enumerate(index_list):
                 val = tuple(pd.Series.tolist(df[pair].iloc[index]))
                 if i == 0:
                     edge_pairs_dict[tuple(pair)] = [val]
                 else:
                     edge_pairs_dict[tuple(pair)].append(val)
-                pair_list.append(pair)
 
         return edge_pairs_dict
 
@@ -272,25 +397,24 @@ class COPD_grpah:
         vertices_flat = [val for arr in vertices for val in arr]
         return vertices_flat
 
-    def get_node_color(self,vertices):
+    def get_node_color(self):
+        return self.color_list
+
+    # fix so that set_node_color takes color_offset as argument.
+    def set_node_color(self,vertices):
         '''
         :param
             vertices: [[val_1_list],[val_2_list],..] #easy to do when convert from dict
         :return:
             color_nodes: [1,1,1,1,1....,2,2,2,2,2,...3,3,3,3,....] where different num = diffrent_color
         '''
-        # color_map = [i for i in range(3)]
         color_nodes = []
-        # print(vertices)
-        # exit()
+
         for i, arr in enumerate(vertices):
             for j in range(len(arr)):
                 color_nodes.append(i)
 
-        # print(color_nodes)
-        # exit()
-
-        return color_nodes
+        self.color_list = color_nodes
 
     def getCommunity_color(self, G):
         '''
@@ -317,26 +441,30 @@ class COPD_grpah:
         :param color_legend: {key1:(1, len(val1}}
         :return:
         '''
+
         import matplotlib.cm as cmx
         import matplotlib.colors as colors
 
-        jet = cm = plt.get_cmap('jet')
-        cNorm = colors.Normalize(vmin=0, vmax=max(color_list))
+        jet = cm = plt.get_cmap('jet') #color map is used to later map color back to rgba
+        cNorm = colors.Normalize(vmin=0, vmax=max(color_list)) #between 0-1
+
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=jet)
 
         f = plt.figure(1)
         ax = f.add_subplot(1, 1, 1)
-        # for label in ColorLegend:
+        labels = [l for l in color_legend]
+
         for label in color_legend:
             ax.plot([0], [0], color=scalarMap.to_rgba(color_legend[label][0]), label=label)
 
+        # HERE>> color is not maped to its community
         nx.draw(G, node_color=color_list, vmin=0, vmax=max(color_list), cmap=jet, ax=ax)
         plt.axis('off')
         f.set_facecolor('w')
 
         plt.legend()
-
         f.tight_layout()
+        plt.show()
 
     def plot_subplot(self, G ,nrows=2, ncols=2):
         '''
@@ -347,21 +475,18 @@ class COPD_grpah:
         :return:
         '''
 
+        ######## FIX THESE SO IT SET UP VARIABLE FOR DISCONNECTED GRAPH
         #sorted subgrph in order of its nodes member
-        disconnected_graph = list(nx.connected_component_subgraphs(G))
-        disconnected_graph = [(disconnected_graph[i],len(g)) for i,g in enumerate(disconnected_graph)]
-        from operator import itemgetter
-        disconnected_graph = sorted(disconnected_graph,key =itemgetter(1), reverse = True)
+        # disconnected_graph = list(nx.connected_component_subgraphs(G))
+        # disconnected_graph = [(disconnected_graph[i],len(g)) for i,g in enumerate(disconnected_graph)]
+        self.set_subgraph_disconnected(G)
+        disconnected_graph = self.get_subgraph_disconnected()
 
-        #disconnected_graph = [subgraph1, subgraph2, ....] #where subgraph is of type networkx
-        disconnected_graph = [ graph for graph, length in disconnected_graph]
-
+        ######################
         count_disconnected = [ i+1 for i, sg in enumerate(disconnected_graph)]
 
         #count_disconnected = int(#nodes of the disconnected_graphs)
         count_disconnected = count_disconnected[-1]
-
-
 
         if count_disconnected < nrows *ncols:
             left_num = count_disconnected % nrows
@@ -417,6 +542,7 @@ class COPD_grpah:
 
                     left_group, right_group = bipartite.sets(subgraph)
 
+                    ###########################
                     bipartite_vertices = left_group
                     bipartite_vertices.update(right_group)
 
@@ -429,8 +555,9 @@ class COPD_grpah:
                     #[(1, offset1), (2,offset2), ... ]
                     color_len_offset = [ (i,val) for i, val in enumerate(biedges_len_offset)]
 
-                    self.setColor_list(bipartite_vertices, color_len_offset) #
+                    self.setColor_list(bipartite_vertices, color_len_offset) # Fix this to be more modular
                     bipartite_color = self.getColor_list()
+                    ##############################3
 
                     plt.subplot(pos_list[i])
                     plt.title('subplot_{:d}'.format(int(count + i)))
@@ -456,44 +583,6 @@ class COPD_grpah:
                 plt.show()
 
 
-    def plot_bipartite(self):
-
-        edges_dict = self.createBipartite_Edges()
-        # print(edges_dict)
-        # exit()
-        df = self.getDataFrame()
-        for pair,edges_list in edges_dict.items():
-
-            B = nx.Graph()
-            left = df[pair[0]].unique()
-            right = df[pair[1]].unique()
-            all_vertices = np.concatenate([left,right])
-
-            # color_legend = {pair[0]: (1,len(left)), pair[1]: (2,len(left)+len(right))}
-
-            #edges_len_list = [len(key1.val), len(key2.val),...]
-            edges_len_list = [len(left), len(right)]
-
-            self.setEdges_len_offset(edges_len_list)
-            edges_len_offset =  self.getEdges_len_offset()
-            # for i,val in enumerate(edges_len_list):
-            #     if i > 0:
-            #         offset = edges_len_list[i] +  edges_len_list[i - 1]
-            #         edges_len_offset.append(offset)
-            #     else:
-            #         edges_len_offset.append(edges_len_list[0])
-
-            self.setColor_legend(pair, edges_len_offset)
-            color_legend = self.getColor_legend()
-            # print(color_legend)
-            # exit()
-
-            # x = self.get_color_legend(pair,edges_list)
-
-            # print(x)
-
-            # self.plot_networkx(all_vertices,edges_list, color_list,community_detectsion=True)
-            self.plot_networkx(all_vertices,edges_list, color_legend,community_detection=True)
     def setEdges_len_offset(self, edges_len_list):
         '''
         :param edges_len_list: [len(edges1_list), len(edges2_list),....]
@@ -505,6 +594,7 @@ class COPD_grpah:
                 edges_len_offset.append(offset)
             else:
                 edges_len_offset.append(edges_len_list[0])
+
         self.edges_len_offset = edges_len_offset
 
     def getEdges_len_offset(self):
@@ -515,7 +605,7 @@ class COPD_grpah:
         return self.edges_len_offset
 
 
-    def setColor_list(self, all_vertices, color_val_offset):
+    def setColor_list(self, vertices_list, color_val_offset):
         '''
 
         :param all_vertices: flat_vertices = [node1, node2, ....]
@@ -523,40 +613,78 @@ class COPD_grpah:
         :return:
         '''
         color_list = []
-        print(len(all_vertices))
 
-        for i, v in enumerate(all_vertices):
+        for i, v in enumerate(vertices_list):
             if i >= color_val_offset[0][1]:
                 del color_val_offset[0]
             color_list.append(color_val_offset[0][0])
-        self.color_list = color_list
 
+        self.color_list = color_list
 
     def getColor_list(self):
         return self.color_list
 
-    def setColor_legend(self, keys_tuple, edges_len_offset):
+    def setColor_legend(self, keys, vertices):
         '''
         :param
-            keys_tuple: (key1, key2, ... )
-            edges_len_list = [len(key1.val), len(key2.val),...]
+            keys       : [key1, key2,...]
+                        type = np or list
+            vettices   : [[member of key1],..]
+
         :return:
             color_legend: {key1: (1, len_1), key2: (2, len_1 + len_2)}
         '''
 
-        df = self.getDataFrame()
-        #get [len(key1.val), len(key2.val),... ]
+        ####These two can be used to create color_offset
+        ## vertices should be [[list_of_member of community1] ,... ]
+        self.set_node_color(vertices)
+        color_nodes = self.get_node_color()
+        node_freq = Counter(color_nodes).values()  # [freq1, ...]
+        uniq_color_node = Counter(color_nodes).keys()  # [0,1,2, ....]
+        #############
 
-        color_legend = {key: (i,val) for i, (key, val) in enumerate(zip(keys_tuple, edges_len_offset))}
+        color_legend = {}
+        index_offset = 0
+
+        #move below to outside of the function and feed in color_node for COMMUNITY_DETECTION.
+        for i, (node_color, freq) in enumerate(zip(uniq_color_node, node_freq)):
+            index_offset += freq
+            color_legend[keys[node_color]] = (i, index_offset)
 
         self.color_legend = color_legend
-        # return self.color_legend
 
     def getColor_legend(self):
         return self.color_legend
 
-    # def plot_networkx(self,vertices_flat, edges,color_nodes, community_detection = False):
-    def plot_networkx(self,vertices_flat, edges,color_legend, community_detection = False):
+    #######################3#
+    #### GRAPH OBJECT
+    #########################
+    def setGraph_object(self, edges_list, vertices_flat, Isdirected = False):
+        if Isdirected:
+            self.G = nx.DiGraph()
+            self.G.add_nodes_from(vertices_flat)
+            self.G.add_edges_from(edges_list)
+            return self.G
+        else:
+            self.G = nx.Graph()
+            self.G.add_nodes_from(vertices_flat)
+            self.G.add_edges_from(edges_list)
+
+        return self.G
+
+    def getGraph_object(self):
+        return self.G
+
+    def getGraph_object_nodes(self):
+        return self.G.nodes
+
+    def geGraph_object_edge(self):
+        return self.G.edges
+
+    # HERE>> figure out how to combine plot_netwoekx and plot_subgraph
+    #    Goal: only take 1 time to select scope to be run. biaprtite and community_detection
+    # def plot_networkx(self,vertices_flat, edges,color_legend):
+    def plot_networkx(self, vertices_flat, edges_list,color_legend, bipartite =False,  community_detection = False):
         '''
 
         :param vertices_flat: [val_1_list,val_2_list,..] # 1 dimension
@@ -565,42 +693,142 @@ class COPD_grpah:
         :return:
             null
         '''
-        # color_offset = [color_code1, color_code2]
         color_val_offset = [(val,offset) for key, (val,offset) in color_legend.items()]
-        all_vertices = np.ndarray.tolist(vertices_flat)
 
-        self.setColor_list(all_vertices, color_val_offset)
+        if type(vertices_flat) is np.ndarray:
+            vertices_flat = np.ndarray.tolist(vertices_flat)
+        else:
+            vertices_flat = vertices_flat
+
+        self.setColor_list(vertices_flat, color_val_offset)
         color_list = self.getColor_list()
 
-        G = nx.Graph()
-        G.add_nodes_from(vertices_flat)
-        G.add_edges_from(edges)
 
-        self.plotGraph_with_legend(G,color_list, color_legend)
-        # plt.show()
-        # exit()
+        G = self.getGraph_object()
 
-        if community_detection:
-            #plot disconnected graph defult = grid 3*3
+        # self.plotGraph_with_legend(G, color_list, color_legend)
+        if bipartite:
+            if community_detection:
+                self.plot_subplot(G)
+            else:
+                self.plotGraph_with_legend(G, color_list, color_legend)
+        else: # use setColor_list(all_vertices, color_val_offset)
+            if community_detection: #change color_list to be separated by community
+                comp = girvan_newman(G)
+                comp = tuple(sorted(c) for c in next(comp))
 
-            self.plot_subplot(G)
-    # def bipartite_community_detector(self):
+                for i, x in enumerate(comp):
+                    for node in x:
+                        color_list.append(i)
 
+                node_freq = Counter(color_list).values()  # [freq1, ...]
+                uniq_color_node = Counter(color_list).keys()  # [0,1,2, ....]
 
-    def plotGraph(self):
+                color_legend = {key_id:(key_id, freq) for key_id, freq in zip(uniq_color_node, node_freq)}
 
-        # nodes = self.node
-        vertices_dict =  self.getUniq_Vertex() # return dict
-        vertices      = [val for key, val in vertices_dict.items()]
-        #turn vertices into [[val_1_list], [val_2_list],... ]
+                #color_legend = {community1: (1,freq of community_1)}
+                self.plotGraph_with_legend(G, color_list, color_legend)
+            else:
+                self.setColor_list(vertices_flat, color_val_offset)
+                color_list = self.getColor_list()
 
-        vertices_flat = self.get_vertices_flat(vertices)
-        color_nodes = self.get_node_color(vertices)
-        edges         = self.createEdges() # createEdges
+                self.plotGraph_with_legend(G, color_list, color_legend)
 
-        self.plot_networkx(vertices_flat,edges,color_nodes) # fix this
+    # def plot_bipartite(self):
+    def run_Graph(self, bipartite = False, selected_keys = None, community_detection = False, report= False, plot = False):
+        ###########################
+        ## SET UP SHARED VARIABLES
+        ###########################
+        df = self.getDataFrame()
+        vertices_dict = self.getUniq_Vertex()  # return dict
+        keys = [key for key in vertices_dict.keys()]
 
+        if selected_keys is not None:
+            vertices = [val for key, val in vertices_dict.items() for sel in selected_keys if key in sel]
+        else:
+            vertices = [val for key, val in vertices_dict.items()]
 
+        if plot:
+            print("requesting for ploting.....")
+
+            if bipartite is False:
+
+                vertices_flat = self.get_vertices_flat(vertices)
+                edges_list = self.createEdges(selected_keys)  # createEdges
+
+                self.setGraph_object(edges_list, vertices_flat)
+                G = self.getGraph_object()
+
+                if report:
+
+                    self.report_Graph_properties(G)
+
+                if community_detection:
+
+                    ### use algorithm avalibale in networkx
+                    comp = girvan_newman(G)
+                    community_membership_list = tuple(sorted(c) for c in next(comp))
+                    community_id_list = [str(i) for i, _ in enumerate(community_membership_list)]
+
+                    # HERE>> fix vertices to have shape of [[list_of_member of community1] ,... ]
+                    self.setColor_legend(community_id_list, community_membership_list)
+                    color_legend = self.getColor_legend()
+
+                    # HERE>> pass in the correct color_legend here!!!!!!!
+                    self.plot_networkx(vertices_flat, edges_list, color_legend, community_detection=community_detection)
+                else:
+
+                    self.setColor_legend(keys, vertices)
+                    color_legend = self.getColor_legend()
+
+                    self.plot_networkx(vertices_flat, edges_list, color_legend, community_detection=community_detection)
+            else:
+                edges_dict = self.createBipartite_Edges(
+                    selected_keys)  # HERE>>fix it so it returns edges of selected keys
+
+                for pair, edges_list in edges_dict.items():
+
+                    vertices = [val for key, val in vertices_dict.items() if key in pair]
+
+                    # if 'geneId' in pair and 'diseaseId' in pair:
+                    # if 'pmid' in pair and 'diseasepId' in pair:
+                    # if 'geneId' in pair and 'diseaseId' in pair:
+                    # if 'geneSymbol' in pair and 'diseaseId' in pair:
+                    # if 'geneId' in pair and 'diseaseName' in pair:
+                    # if 'geneSymbol' in pair and 'diseaseName' in pair:
+                    # if 'diseaseClass' in pair and 'diseaseName' in pair:
+                    # if 'diseaseClass' in pair and 'geneId' in pair:
+                    # if True:
+
+                    left = df[pair[0]].unique()
+                    right = df[pair[1]].unique()
+                    vertices_flat = np.concatenate([left, right])
+
+                    self.setGraph_object(edges_list, vertices_flat)
+                    G = self.getGraph_object()
+                    if report:
+                        self.report_Graph_properties(G)
+
+                    if community_detection:
+                        comp = girvan_newman(G)
+
+                        community_membership_list = tuple(sorted(c) for c in next(comp))
+                        community_id_list = [str(i) for i, _ in enumerate(community_membership_list)]
+
+                        self.setColor_legend(community_id_list, community_membership_list)
+                        color_legend = self.getColor_legend()
+                        #################################################
+                        self.plot_networkx(vertices_flat, edges_list, color_legend,
+                                           bipartite = bipartite,
+                                           community_detection=community_detection)
+                    else:
+                        # vertices = [[member of keys1], [member of keys2], ... ]
+                        self.setColor_legend(pair, vertices)
+                        color_legend = self.getColor_legend()
+
+                        self.plot_networkx(vertices_flat, edges_list, color_legend,
+                                           bipartite=bipartite,
+                                           community_detection=community_detection)
 
 if __name__ == "__main__":
 
@@ -612,27 +840,53 @@ if __name__ == "__main__":
     num_val = param.num_val
 
     file_name = param.file_name
-    copd_graph = COPD_grpah(file_name,keys_name, num_val)
 
+    # with open(file_name, "r") as f:
+    #     val_lists = f.readlines()
+    #     for line in val_lists:
+    #         val_list = line.split(",")
+    #         if "diseaseName" in val_list[0]:
+    #             print("diseaseName  " ,val_list[1:10])
+    #         if "diseaseClass" in val_list[0]:
+    #             print("diseaseClass  ", val_list[1:10])
+    #         if "geneSymbol" in val_list[0]:
+    #             print("geneSymbol ", val_list[1:10])
+    #         if "uniq_pmid" in val_list[0]:
+    #             print("Uniq_pmid  ", val_list[1:10])
+    #         if "uniq_geneId" in val_list[0]:
+    #             print("Uniq_geneId  ", val_list[1:10])
+    #         if "uniq_disease" in val_list[0]:
+    #             print("Uniq_disease ", val_list[1:10])
+    #         # print(val_list.split(",")[0], " ", len(val_list.split(",")))
+    # exit()
+
+    copd_graph = COPD_grpah(file_name,keys_name, num_val)
     data = copd_graph.data
 
     ####################
-    # Bipartite & community detection
+    # Graph & Bipartite & community detection
     ####################
 
-    # dataMatrix_col = copd_graph.getMatrix_col()
-    # dataMatrix_row = copd_graph.getMatrix_row()
-    # print(dataMatrix_col)
-    # print(dataMatrix_row)
+    selected_keys = param.selected_keys
+    community_detection = param.community_detection
+    bipartite = param.bipartite
+    plot = param.plot
+    report = param.report
 
-    # copd_graph.bipartite_community_detector()
-    copd_graph.plot_bipartite()
+    # copd_graph.setup() # what is thsi even for?
+    # exit()
+    copd_graph.run_Graph(bipartite = bipartite,
+                         selected_keys = selected_keys,
+                         community_detection = community_detection,
+                         report = report,
+                         plot   = plot)
     exit()
 
     ###################3
     # PLOTTING
     ###################
-    # copd_graph.plotGraph()
+    # selected_keys = param.selected_keys
+    # copd_graph.plotGraph(selected_keys)
     # exit()
 
     # node = copd_graph.getNode()

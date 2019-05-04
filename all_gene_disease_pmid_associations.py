@@ -15,27 +15,27 @@ class gene_disease_pmid:
 
     def printFileToScreen(self,file_name):
         with open(file_name,"r") as f:
-            for line in f.readlines():
-                print(line)
+            for val_list in f.readlines():
+                print(val_list)
 
     def writeToFile(self,file_name, dictionary):
         with open(file_name,"w") as f:
             # f.write(str(copd_dict))
             for i, key in enumerate(dictionary.keys()):
-                line = ""
-                line = line + " " + key # write the col's name
+                val_list = ""
+                val_list = val_list + " " + key # write the col's name
                 #write the col's val
                 for vals in dictionary[key]:
-                    line = line + "," + vals
-                line = line + "\n"
-                f.write(line)
+                    val_list = val_list + "," + vals
+                val_list = val_list + "\n"
+                f.write(val_list)
 
     def readFile(self,file_name):
         dictionary = {}
         with open(file_name,"r") as f:
-            for line in f.readlines():
-                # print(line)
-                val_list = line.split(",")
+            for val_list in f.readlines():
+                # print(val_list)
+                val_list = val_list.split(",")
                 key = val_list[0]
                 val = val_list[1:]
                 dictionary[key] = val

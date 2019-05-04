@@ -31,6 +31,66 @@ common cols
 =======================
 === Doing
 =======================
+1. List of copd related diseas and genes extracted (disease names, genee names, also number of members in each category)
+2. Show the copd related gene neworks, disae networks, and gene-disease networks (including network characteristics, such as degree distributions)
+3. Find a community of (gene-disease), report who are the genes and diseases in these communities.
+
+>bipartite = True
+vertices ('pmid', 'geneId')
+all_Vertice 551
+
+>bipartite = False
+vertices ['pmid', 'geneId', 'diseaseId']
+vertices_flat 621
+
+> createEdges return unique pair.
+> bipartite = False has more edges than bipartite = True
+
+> fix so that setEdgesOffset uses collection.Count
+
+> fix so that createBipartite return edges of selected keys
+> create a function that input = keys, output = list of each key's member
+> pass the vertices whose key = pair
+    :should i use key to choose vertices?
+
+
+> def plot_bipartite = 466
+
+> def setEdges_len_offset = 513
+> def setColor_legend = 554
+
+> def plot_networkx = 575
+> def plotGraph_with_legend = 312
+
+> def plotGraph = 630
+> def plotGraph_with_legend = 318
+
+> def plot_bipartite = 466
+
+> main:
+    >copd_graph = COPD_grpah() => 690
+    >copd_graph.plot_bipartite() = 704
+    >cop_graph.plotGraph() = 710
+
+
+HERE>> figure out how to combine plot_networkx and plot_subgrpah
+>report the following
+    :getDisconnected Graph
+    :number of disconnected-component
+    :edge Density
+
+    >network Centrality
+    >node similarity
+    >network community detection
+    >link-prediction
+
+>what is the different between get_node_color and getColor_list
+> what is setup() for??
+
+>report_Graph_properties( G, degree_dist = None)
+
+> get graph and nodes characteristic
+
 > community detection steps
     :plot bipartite graph (the graph allow for disconnected subgraph)
         steps
@@ -87,6 +147,7 @@ common cols
             > I get a feeling that it will be very similar to degree central
         >Group Centrality?
             >(I doubt that we gonna need it at all)
+
     > node similarity
         >> similarity of nodes in the sme group
         :common nodes
