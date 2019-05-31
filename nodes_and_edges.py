@@ -181,20 +181,25 @@ class COPD_grpah:
 
         self.set_subgraph_disconnected(G)
         disconnected_subgraph_list = self.get_subgraph_disconnected()
-        for subgraph in disconnected_subgraph_list:
-            print("diameter     = {:d}".format(diameter(subgraph)))
-            print("center       = ", center(subgraph))
-            print("eccentricity = ", eccentricity(subgraph))
-            print("    eccentricity:a node v is the maximum distance from v to all other nodes in G.")
-            print("periphery    = ", periphery((subgraph)))
-            print("    periphery   :the set of nodes with eccentricity equal to the diameter.")
-            print("radius       = ", radius((subgraph)))
-            print("    radius      :the minimum eccentricity.")
+        for i, subgraph in enumerate(disconnected_subgraph_list):
+            if i == 0 :
+                print("diameter     = {:d}".format(diameter(subgraph)))
+                print("center       = ", center(subgraph))
+                print("eccentricity = ", eccentricity(subgraph))
+                print("    eccentricity:a node v is the maximum distance from v to all other nodes in G.")
+                print("periphery    = ", periphery((subgraph)))
+                print("    periphery   :the set of nodes with eccentricity equal to the diameter.")
+                print("radius       = ", radius((subgraph)))
+                print("    radius      :the minimum eccentricity.")
 
     def getGraph_Centrality(self, G, verbose = False, plot = False):
         algo_name = nx.closeness_centrality.__name__
         print("printing Graph_centrality using algo = {:s}".format(algo_name))
-        print(nx.closeness_centrality(G))
+        x = [(key,val) for i,(key,val) in enumerate(nx.closeness_centrality(G).items()) if i < 10]
+        print(x)
+        # for i,(key, val) in enumerate(nx.closeness_centrality(G)):
+        #     if i == 10:
+        #         print("{:s} : {:f}".format(key,val))
 
     def set_subgraph_disconnected(self, G):
         disconnected_graph = list(nx.connected_component_subgraphs(G))
@@ -247,7 +252,7 @@ class COPD_grpah:
 
     #pass in connected graph of the
     def report_Graph_properties(self, G,
-                                degree_dist        = None,
+                                degree_dist    = None,
                                 clustering    = None,
                                 centrality    = None,
                                 shortest_path = None):
@@ -261,7 +266,7 @@ class COPD_grpah:
         # self.getGraph_Degree_dist(G, verbose = verbose, plot = plot)
         # self.graph_link_prediction(G)
         # self.graph_link_analysis(G)
-        self.graph_cut(G) # G must be directed only
+        # self.graph_cut(G) # G must be directed only
         # exit()
 
     def displayDict(self,dict):
@@ -457,7 +462,7 @@ class COPD_grpah:
         for label in color_legend:
             ax.plot([0], [0], color=scalarMap.to_rgba(color_legend[label][0]), label=label)
 
-        # HERE>> color is not maped to its community
+        # HERE>> mismatch of number of color_ist and nodes in G
         nx.draw(G, node_color=color_list, vmin=0, vmax=max(color_list), cmap=jet, ax=ax)
         plt.axis('off')
         f.set_facecolor('w')
@@ -666,6 +671,7 @@ class COPD_grpah:
             self.G.add_edges_from(edges_list)
             return self.G
         else:
+
             self.G = nx.Graph()
             self.G.add_nodes_from(vertices_flat)
             self.G.add_edges_from(edges_list)
@@ -703,7 +709,6 @@ class COPD_grpah:
         self.setColor_list(vertices_flat, color_val_offset)
         color_list = self.getColor_list()
 
-
         G = self.getGraph_object()
 
         # self.plotGraph_with_legend(G, color_list, color_legend)
@@ -716,7 +721,7 @@ class COPD_grpah:
             if community_detection: #change color_list to be separated by community
                 comp = girvan_newman(G)
                 comp = tuple(sorted(c) for c in next(comp))
-
+                color_list = []
                 for i, x in enumerate(comp):
                     for node in x:
                         color_list.append(i)
@@ -773,6 +778,9 @@ class COPD_grpah:
                     # HERE>> fix vertices to have shape of [[list_of_member of community1] ,... ]
                     self.setColor_legend(community_id_list, community_membership_list)
                     color_legend = self.getColor_legend()
+
+                    # print(len(vertices_flat))
+                    # exit()
 
                     # HERE>> pass in the correct color_legend here!!!!!!!
                     self.plot_networkx(vertices_flat, edges_list, color_legend, community_detection=community_detection)

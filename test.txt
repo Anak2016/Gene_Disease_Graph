@@ -1,0 +1,6 @@
+import urllib.request
+
+url = "https://raw.githubusercontent.com/Awannaphasch2016/upload_dataset/master/upload_dataset/bear/black/black"
+filename = "black"
+temp = urllib.request.urlretrieve(url, filename)
+temp

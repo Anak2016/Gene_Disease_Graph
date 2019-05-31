@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c5d1cc8b-ce65-46a0-8588-9045c19b48e7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map_umls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PubAnnotator.py" beforeDir="false" afterPath="$PROJECT_DIR$/PubAnnotator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/all_gene_disease_pmid_associations.py" beforeDir="false" afterPath="$PROJECT_DIR$/all_gene_disease_pmid_associations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainFile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/anak.py" beforeDir="false" afterPath="$PROJECT_DIR$/anak.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nodes_and_edges.py" beforeDir="false" afterPath="$PROJECT_DIR$/nodes_and_edges.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parameters.py" beforeDir="false" afterPath="$PROJECT_DIR$/parameters.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/temp.py" beforeDir="false" afterPath="$PROJECT_DIR$/temp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/todo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/todo.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,74 +19,32 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.53673065">
+    <splitter split-orientation="horizontal" split-proportion="0.684315">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/mainFile.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="82">
-                  <caret line="14" column="18" lean-forward="true" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/dataset/demo_dataset/PubAnnotator_instances.txt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="51">
-                  <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/nodes_and_edges.py">
+            <entry file="file://$PROJECT_DIR$/map_umls.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="406">
-                  <caret line="281" column="11" lean-forward="true" selection-start-line="281" selection-start-column="11" selection-end-line="281" selection-end-column="11" />
-                  <folding>
-                    <element signature="e#0#20#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="202">
+                  <caret line="364" column="8" selection-start-line="364" selection-start-column="8" selection-end-line="364" selection-end-column="8" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/parameters.py">
+            <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/gene_disease_uniq.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="68">
+                  <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/gene_disease_1000.txt">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="51">
-                  <caret line="3" column="13" lean-forward="true" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/temp.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="34">
-                  <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="22" />
-                  <folding>
-                    <element signature="e#0#21#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/dataset/demo_dataset/gene_disease_1000.txt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="119">
-                  <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/PubAnnotator.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="307">
-                  <caret line="195" column="14" lean-forward="true" selection-start-line="195" selection-start-column="14" selection-end-line="195" selection-end-column="14" />
+                  <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
                 </state>
               </provider>
             </entry>
@@ -98,35 +56,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/todo.txt">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="76">
-                  <caret line="76" selection-start-line="76" selection-end-line="76" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/dataset/Pubannotator/info.txt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret selection-end-line="3" selection-end-column="11" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/dataset/disease_gene/info.txt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="357">
-                  <caret line="21" selection-start-line="21" selection-end-line="21" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/igraph_basic">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="85">
-                  <caret line="5" selection-start-line="5" selection-end-line="5" />
+                <state relative-caret-position="1666">
+                  <caret line="243" column="12" lean-forward="true" selection-start-line="243" selection-start-column="12" selection-end-line="243" selection-end-column="12" />
                 </state>
               </provider>
             </entry>
@@ -144,36 +75,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>plot_graph</find>
-      <find>G = nx.Graph()</find>
-      <find>get_</find>
-      <find>getGraph</find>
-      <find>networkx</find>
-      <find>comp</find>
-      <find>setup</find>
-      <find>vertices_flat</find>
-      <find>plot_Graph</find>
-      <find>Counter</find>
-      <find>plot</find>
-      <find>def report</find>
+      <find>0050338,37,37,0050737,0050737,2214,0050737,2256,934,0050338,0050338,0050736,37,0050338,0050338</find>
+      <find>CTD_human,CTD_human,CTD_human,CTD_human,CTD_human,CTD_human,CTD_human,CTD_human,CTD_human</find>
+      <find>,C06;C23,C06;C23,C06;C23,C06;C23,C06</find>
+      <find>,C06;C23,C06;C23,C06;C23,C06;C23,C06;C23,C06;C23,C06;C23,C06;C23,</find>
+      <find>0050338</find>
+      <find>C0019209</find>
+      <find>val_list</find>
+      <find>qualify_label_list</find>
+      <find>C0001418</find>
+      <find>2,1,1,1</find>
+      <find>C0027627</find>
+      <find>C0036341</find>
+      <find>C0002395</find>
+      <find>cui_map</find>
+      <find>cui</find>
+      <find>uniq_cui_label_dict</find>
+      <find>37</find>
+      <find>,37</find>
+      <find>gene_disease_50000</find>
+      <find>C0041227</find>
+      <find>C1333990</find>
+      <find>None</find>
+      <find>parent_chilren_dict</find>
+      <find>gene_disease_1000_file_path</find>
+      <find>gene_disease_uniq_DO_mapping</find>
+      <find>class_CUIs_dict</find>
+      <find>create_class_CUIs_dict</find>
+      <find>label_list</find>
+      <find>gene_disease_uniq_file_path</find>
       <find>HERE&gt;&gt;</find>
-      <find>def plot_su</find>
-      <find>disconnec</find>
-      <find>disconnected_graph</find>
-      <find>disconnected_graph</find>
-      <find>plot_sub</find>
-      <find>plotGraph</find>
-      <find>plot_networkx</find>
-      <find>plotGraph_with_legend</find>
-      <find>plot_subplot</find>
-      <find>bipartite</find>
-      <find>exit()</find>
-      <find>getGraph_Centrality</find>
-      <find>report_Graph_properties</find>
-      <find>G</find>
-      <find>report</find>
-      <find>setGraph</find>
-      <find>def graph_</find>
     </findStrings>
     <replaceStrings>
       <replace>temp_uniq</replace>
@@ -202,26 +133,35 @@
         <option value="$PROJECT_DIR$/igraph_basic" />
         <option value="$PROJECT_DIR$/PubAnnotator.py" />
         <option value="$PROJECT_DIR$/mainFile.py" />
-        <option value="$PROJECT_DIR$/all_gene_disease_pmid_associations.py" />
         <option value="$PROJECT_DIR$/gene_disease_1000.txt" />
         <option value="$PROJECT_DIR$/dataset/generated_dataset/demo_dataset.py" />
         <option value="$PROJECT_DIR$/.gitignore.gitignore" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/anak.py" />
         <option value="$USER_HOME$/Downloads/legend.py" />
         <option value="$PROJECT_DIR$/dataset/demo_dataset/gene_disease_1000.txt" />
+        <option value="$PROJECT_DIR$/parameters.py" />
         <option value="$PROJECT_DIR$/test.txt" />
         <option value="$PROJECT_DIR$/temp.py" />
-        <option value="$PROJECT_DIR$/todo.txt" />
-        <option value="$PROJECT_DIR$/parameters.py" />
         <option value="$PROJECT_DIR$/nodes_and_edges.py" />
+        <option value="$PROJECT_DIR$/anak.py" />
+        <option value="$PROJECT_DIR$/dataset/disease_mappings_umls/disease_mappings.tsv" />
+        <option value="$PROJECT_DIR$/dataset/disease_mappings_umls/diseaseId_DO_mapping.txt" />
+        <option value="$PROJECT_DIR$/dataset/disease_mappings_umls/parent_parent_diseaseId_DO_mapping.txt" />
+        <option value="$PROJECT_DIR$/dataset/disease_mappings_umls/gene_disease_uniq_DO_mapping.txt" />
+        <option value="$PROJECT_DIR$/dataset/disease_mappings_umls/uniq_CUIs_label_mapping.txt" />
+        <option value="$PROJECT_DIR$/dataset/demo_dataset/gene_disease_1000_label.txt" />
+        <option value="$PROJECT_DIR$/dataset/generated_dataset/something.txt" />
+        <option value="$PROJECT_DIR$/dataset/generated_dataset/gene_disease_50000.txt" />
+        <option value="$PROJECT_DIR$/all_gene_disease_pmid_associations.py" />
+        <option value="$PROJECT_DIR$/todo.txt" />
+        <option value="$PROJECT_DIR$/map_umls.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="width" value="977" />
-    <option name="height" value="1038" />
+    <option name="x" value="950" />
+    <option name="width" value="979" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -229,7 +169,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -242,6 +181,52 @@
               <item name="DisGeNER" type="462c0819:PsiDirectoryNode" />
               <item name="dataset" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="DisGeNER" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DisGeNER" type="462c0819:PsiDirectoryNode" />
+              <item name="dataset" type="462c0819:PsiDirectoryNode" />
+              <item name="generated_dataset" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Scope 'Default Changelist'; set:Default Changelist; class com.intellij.packageDependencies.ChangeListScope">
+          <expand>
+            <path>
+              <item name="DisGeNER" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <subPane subId="Scope 'Changed Files'; set:Changed Files; ALL; class com.intellij.packageDependencies.ChangeListScope">
+          <expand>
+            <path>
+              <item name="DisGeNER" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="DisGeNER" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="DisGeNER" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="dataset" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="DisGeNER" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="dataset" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="demo_dataset" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -249,10 +234,13 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../keras-gcn" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Anak\PycharmProjects\DisGeNER\dataset" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Anak\PycharmProjects\DisGeNER\dataset\demo_dataset" />
       <recent name="C:\Users\Anak\PycharmProjects\DisGeNER\dataset\generated_dataset" />
@@ -271,7 +259,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.nodes_and_edges">
+  <component name="RunManager" selected="Python.all_gene_disease_pmid_associations">
     <configuration name="PubAnnotator" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="DisGeNER" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -379,10 +367,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.all_gene_disease_pmid_associations" />
+        <item itemvalue="Python.anak" />
         <item itemvalue="Python.nodes_and_edges" />
         <item itemvalue="Python.temp" />
-        <item itemvalue="Python.anak" />
-        <item itemvalue="Python.all_gene_disease_pmid_associations" />
         <item itemvalue="Python.PubAnnotator" />
       </list>
     </recent_temporary>
@@ -413,7 +401,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.18067504" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25016546" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -423,17 +411,17 @@
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.32954547" />
       <window_info anchor="bottom" id="Version Control" order="6" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.4996691" visible="true" weight="0.3068182" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.4996691" visible="true" weight="0.30113637" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5009927" side_tool="true" weight="0.22727273" />
-      <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.49900728" weight="0.2556818" />
+      <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.49900728" weight="0.25" />
       <window_info anchor="bottom" id="Thumbnails" order="10" weight="0.32954547" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Debug" order="3" side_tool="true" weight="0.02016129" />
+      <window_info anchor="right" id="Debug" order="3" side_tool="true" weight="0.3501344" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.19986764" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20913303" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -443,13 +431,14 @@
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.32954547" />
       <window_info anchor="bottom" id="Version Control" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.33522728" />
-      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="9" weight="0.32954547" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.4996691" visible="true" weight="0.3721591" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5009927" side_tool="true" weight="0.22727273" />
+      <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.49900728" weight="0.25" />
+      <window_info anchor="bottom" id="Thumbnails" order="10" weight="0.32954547" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Debug" order="3" side_tool="true" weight="0.375" />
+      <window_info anchor="right" id="Debug" order="3" side_tool="true" weight="0.3501344" />
     </layout-to-restore>
   </component>
   <component name="XDebuggerManager">
@@ -462,7 +451,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/all_gene_disease_pmid_associations.py</url>
-          <line>152</line>
+          <line>254</line>
           <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -472,12 +461,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/nodes_and_edges.py</url>
-          <line>564</line>
+          <line>569</line>
           <option name="timeStamp" value="112" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/nodes_and_edges.py</url>
-          <line>351</line>
+          <line>356</line>
           <option name="timeStamp" value="116" />
         </line-breakpoint>
       </breakpoints>
@@ -491,26 +480,52 @@
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="all_vertices" language="Python" />
-        <watch expression="color_val_offset" language="Python" />
-        <watch expression="color_legend" language="Python" />
-        <watch expression="vertices_flat" language="Python" />
-        <watch expression="bipartite_vertices" language="Python" />
-        <watch expression="temp" language="Python" />
-        <watch expression="temp_len" language="Python" />
-        <watch expression="x " language="Python" />
-        <watch expression="l" language="Python" />
-        <watch expression="r" language="Python" />
-        <watch expression="left_group" language="Python" />
-        <watch expression="right_group" language="Python" />
-        <watch expression="biedges_len_offset" language="Python" />
-        <watch expression="bipartite_color" language="Python" />
-        <watch expression="color_len_offset" language="Python" />
+        <watch expression="dict" language="Python" />
+        <watch expression="keys_list[:-1]" language="Python" />
+        <watch expression="uniq" language="Python" />
+        <watch expression="keys_list[1:]" language="Python" />
+        <watch expression="left" language="Python" />
+        <watch expression="right" language="Python" />
       </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
+      <expression>
+        <expression-string>right</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>left</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>keys_list[1:]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>key_list[1:]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>keys_list[:-1]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>uniq</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>dict</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>left_group</expression-string>
         <language-id>Python</language-id>
@@ -526,167 +541,18 @@
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>r</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>l</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>x</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>color_len_offset</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>bipartite_color</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>biedges_len_offset</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>right_group</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test" />
-    <entry file="file://$PROJECT_DIR$/todo" />
-    <entry file="file://$PROJECT_DIR$/demofile.txt" />
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="1740" selection-start-line="1740" selection-end-line="1740" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../NLP_HW2/hw2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="26" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/-392876064/_io.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="1277" column="8" selection-start-line="1277" selection-start-column="8" selection-end-line="1277" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/tokenize.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="659" column="23" lean-forward="true" selection-start-line="659" selection-start-column="23" selection-end-line="659" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/igraph/formula.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="56" column="40" selection-start-line="56" selection-start-column="16" selection-end-line="56" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/-392876064/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="3628" column="8" selection-start-line="3628" selection-start-column="8" selection-end-line="3628" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/numpy/lib/arraysetops.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="271" selection-start-line="271" selection-end-line="271" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/networkx/classes/graph.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="840" column="24" selection-start-line="840" selection-start-column="24" selection-end-line="840" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/igraph/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="194" column="17" lean-forward="true" selection-start-line="194" selection-start-column="17" selection-end-line="194" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/demo_dataset.py" />
-    <entry file="file://$PROJECT_DIR$/.gitignore.gitignore" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
+    <entry file="file://$PROJECT_DIR$/dataset/Pubannotator/pubannotator.tsv">
+      <provider selected="true" editor-type-id="LargeFileEditor">
         <state relative-caret-position="17">
-          <caret line="1" column="9" lean-forward="true" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
+          <caret line="1" column="29" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="37" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/pandas/core/indexes/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="3079" selection-start-line="3079" selection-end-line="3079" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/pandas/core/internals.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="4114" selection-start-line="4114" selection-end-line="4114" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/legend.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="27" column="17" lean-forward="true" selection-end-line="42" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="320" column="34" lean-forward="true" selection-start-line="320" selection-start-column="34" selection-end-line="320" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/all_gene_disease_pmid_associations.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="247" column="14" selection-start-line="247" selection-start-column="14" selection-end-line="247" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset/disease_gene/info.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/gene_disease_1000_FIXED_ERROR.txt" />
+    <entry file="file://$PROJECT_DIR$/gene_disease_uniq_FIXED_ERROR.txt" />
     <entry file="file://$PROJECT_DIR$/igraph_basic">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -694,104 +560,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/gene_disease_data.txt">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="17">
-          <caret column="432" selection-start-column="432" selection-end-column="432" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/gene_disease_uniq.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret column="1304" selection-start-column="1304" selection-end-column="1304" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset/disease_gene/disease_gene.tsv">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="210">
-          <caret line="149" column="32" selection-start-line="149" selection-start-column="32" selection-end-line="149" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/PubAnnotator_uniq.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../blstm_ner/anak.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/anak.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="50" column="35" lean-forward="true" selection-start-line="50" selection-start-column="35" selection-end-line="50" selection-end-column="35" />
-          <folding>
-            <element signature="e#81#102#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset/Pubannotator/pubannotator.tsv">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="153">
-          <caret line="512" column="40" selection-start-line="512" selection-start-column="40" selection-end-line="512" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/uniq.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset/demo_dataset/gene_disease_testing.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret column="429" selection-start-column="429" selection-end-column="429" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/networkx/drawing/nx_pylab.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="49" column="4" lean-forward="true" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset/demo_dataset/gene_disease_1000.txt">
+    <entry file="file://$PROJECT_DIR$/black" />
+    <entry file="file://$PROJECT_DIR$/temp.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PubAnnotator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="195" column="14" lean-forward="true" selection-start-line="195" selection-start-column="14" selection-end-line="195" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainFile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="14" column="18" lean-forward="true" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/networkx/algorithms/community/kclique.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+          <caret line="7" column="17" lean-forward="true" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -802,58 +578,225 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/collections/__init__.pyi">
+    <entry file="file://$PROJECT_DIR$/dataset/disese_mappings_umls/disease_mappings.tsv" />
+    <entry file="file://$PROJECT_DIR$/parameters.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="244" column="8" selection-start-line="244" selection-start-column="8" selection-end-line="244" selection-end-column="8" />
+        <state relative-caret-position="232">
+          <caret line="15" column="26" lean-forward="true" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/temp.py">
+    <entry file="file://$PROJECT_DIR$/nodes_and_edges.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="22" />
+        <state relative-caret-position="681">
+          <caret line="469" column="20" selection-start-line="469" selection-start-column="20" selection-end-line="469" selection-end-column="20" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/networkx/algorithms/cluster.py">
+    <entry file="file://$PROJECT_DIR$/dataset/demo_dataset/gene_disease_testing.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="371" column="4" selection-start-line="371" selection-start-column="4" selection-end-line="371" selection-end-column="4" />
+        <state relative-caret-position="-8003">
+          <caret column="429" selection-start-column="429" selection-end-column="429" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dataset/demo_dataset/PubAnnotator_instances.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="10406" lean-forward="true" selection-start-line="2" selection-start-column="10406" selection-end-line="2" selection-end-column="10414" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/demo_dataset/gene_disease_1000_mapping" />
+    <entry file="file://$PROJECT_DIR$/dataset/demo_dataset/gene_disease_all_mapping" />
+    <entry file="file://$PROJECT_DIR$/dataset/disease_mappings_umls/diseaseId_code_vocabName_map.txt" />
+    <entry file="file://$PROJECT_DIR$/dataset/disease_mappings_umls/gene_disease_1000_mapping.txt" />
+    <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/gene_disease_data.txt" />
+    <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/PubAnnotator_uniq.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parameters.py">
+    <entry file="file://$PROJECT_DIR$/mainFile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="13" lean-forward="true" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+        <state relative-caret-position="303">
+          <caret line="27" column="10" lean-forward="true" selection-start-line="27" selection-start-column="10" selection-end-line="27" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/disease_mappings_umls/PubAnnotator_DO_mapping.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/disease_mappings_umls/diseaseId_DO_mapping.txt" />
+    <entry file="file://$PROJECT_DIR$/../keras-gcn/kegra/anak.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/disease_gene/info.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/-392876064/builtins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="488" column="4" selection-start-line="488" selection-start-column="4" selection-end-line="488" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/disease_mappings_umls/CUIs_label_mapping.txt" />
+    <entry file="file://$PROJECT_DIR$/CHECK_diseaseName_diseaseClass.txt" />
+    <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/uniq.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/gene_disease_1000_FIXED_ERROR.txt" />
+    <entry file="file://$PROJECT_DIR$/dataset/disease_mappings_umls/disease_mappings.tsv">
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="40" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/gene_disease_uniq_FIXED_ERROR.txt" />
+    <entry file="file://$PROJECT_DIR$/dataset/demo_dataset/gene_disease_50000_no_None.txt" />
+    <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/gene_disease_data(not_sure_what_it_is).txt">
+      <provider selected="true" editor-type-id="LargeFileEditor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/disease_mappings_umls/gene_disease_uniq_DO_mapping.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="6108" selection-start-line="6108" selection-end-line="6108" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/disease_mappings_umls/parent_diseaseId_DO_mapping.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="577">
+          <caret line="6079" selection-start-line="6079" selection-end-line="6079" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/disease_mappings_umls/parent_parent_diseaseId_DO_mapping.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3">
+          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/disease_mappings_umls/gene_disease_1000_DO_mapping.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="13" column="41" lean-forward="true" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/disease_mappings_umls/uniq_CUIs_label_mapping.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="51" column="8" selection-start-line="51" selection-end-line="51" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/something.txt" />
+    <entry file="file://$PROJECT_DIR$/all_gene_disease_pmid_data.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7327" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/gene_disease_50000.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/demo_dataset/gene_disease_50000_label.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="7" column="265" selection-start-line="7" selection-start-column="265" selection-end-line="7" selection-end-column="265" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/anak.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/disease_gene/disease_gene.tsv">
+      <provider selected="true" editor-type-id="LargeFileEditor">
+        <state relative-caret-position="406">
+          <caret line="152" column="43" selection-start-line="152" selection-start-column="35" selection-end-line="152" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/demo_dataset/gene_disease_1000_label.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="40" lean-forward="true" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/demo_dataset/gene_disease_50000_label_no_None.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/demo_dataset/gene_disease_1000.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/todo.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="76" selection-start-line="76" selection-end-line="76" />
+        <state relative-caret-position="1666">
+          <caret line="243" column="12" lean-forward="true" selection-start-line="243" selection-start-column="12" selection-end-line="243" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nodes_and_edges.py">
+    <entry file="file://$PROJECT_DIR$/all_gene_disease_pmid_associations.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="281" column="11" lean-forward="true" selection-start-line="281" selection-start-column="11" selection-end-line="281" selection-end-column="11" />
+        <state relative-caret-position="-73">
+          <caret line="474" column="77" selection-start-line="474" selection-start-column="77" selection-end-line="474" selection-end-column="77" />
           <folding>
-            <element signature="e#0#20#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/gene_disease_1000.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/generated_dataset/gene_disease_uniq.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/map_umls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="364" column="8" selection-start-line="364" selection-start-column="8" selection-end-line="364" selection-end-column="8" />
         </state>
       </provider>
     </entry>

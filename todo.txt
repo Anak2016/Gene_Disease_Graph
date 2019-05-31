@@ -8,16 +8,23 @@ common cols
 >pmid
 >DiseaseId
 >geneID
+
+uniq sources from gene_disease
+> GENOMICS_ENGLAND,CTD_human,MGD,PSYGENET,GWASDB,CLINVAR,CLINGEN,RGD,CTD_mouse,BEFREE,CTD_rat,GWASCAT,UNIPROT,LHGDN
+
 ======================
-=== Done
+=== dataset information
 ======================
-> create unique geneId, geneSymbol, diseaseId, diseaseName, diseaseClass, pmid, source (all_ge ne_disease_pmid_associations.py)
+>info of gene_disease_uniq dataset
     excluded: DSI, DPI, diseaseType, diseaseSemanticType, score, EI, YearInitial, YearFinal
-    >1136908 instances
+
+    >1137270 instances
 
     uniq value of the following columns
     geneId, geneSymbol, diseaseId, diseaseName, diseaseClass, pmid,   source
-    16367   16363       9487       9695         835           398083  14
+    16628   16624       9463       9434         815           398198  14
+        note: I skipped some row that has no diseaseClass in it.[pattern to extract other col's vals are not clear]
+        >> len of cols are equal because I rolled back those cols in which its value is empty.
 
 >create unique  pmid, geneId, diseaseId (Pubannotator.py)
     excluded: section, sentence_number, geneoffset, diseaseoffsets, sentence
@@ -28,13 +35,112 @@ common cols
     Question:
         What is gene off set?
 
+> There are 6110 gene_disease_uniq mapping to DO.
+        :There are 15675 mapping to DO
+        :There are 97501 mapping in total.
+            >>some of the vocab source map to the same CUIs
+
+> get parentId of the top 20 maximum member count
+    :check for all 3 files: parent, parent_parent, parent_intersect
+    >> uniq class label must not be children or parent of other class label.
+        :how to check if the lable is a children or parent of the other class label?
+
+    :mapp of gene_disease.tsv is as shown below
+    >> uniq_CUIs -> DOID -> DOID parent
+
+    :selected class labels
+       >> len = 16 classes label -> 14 is legal, 2 is not.
+            :225 and 1826 are not legal
+
+       >>0050736,225,0050737,936,37,934,2256,0080015,0050338,5614,9252,1826,0050889,2978,423,331,870
+           :uniq children_DOID in order: [64, 62, 19, 27, 47, 16, 26, 25, 22, 20, 3, 11, 11, 12, 8]
+
+        >0050736    autosomal dominant disease
+            :151 DOID
+        NO >225        syndrome
+                :112 DOID
+        >0050737    autosomal recessive disease
+            :93 DOID
+        >936        brain disease
+            :71 DOID
+        >37         skin disease
+            :68 DOID
+        >934        viral infectious disease
+            :59 DOID
+        >2256       osteochondrodysplasia (developmental disorders of the skeletal system)
+            :50 DOID
+        >0080015    physical disorder
+            :50 DOID
+        >0050338    primary bacterial infectious disease
+            :48 DOID
+        >5614       eye disease
+            :47 DOID
+        NO >1826       epilepsy (children 936:brain disease)
+                :46 DOID
+        >9252       amino acid metabolic disorder
+            :42 DOID
+
+        >0050889    non-syndromic intellectual disability
+            :42 DOID
+        >2978       carbohydrate metabolic disorder
+            :42 DOID
+        >423        myopathy
+            :35 DOID
+        >870        neuropathy
+            :34 DOID
+
+        OTHER CODE IN SORTED ODER: 331 1289 1279 480
+
+    >>step to collect dataset that belongs to the given classes
+        1.create dict to map DOIDs that have the same parent or itself exists in the dataset
+            :{parent_DOID: [DOID of parent's children, or the parent_DOID itself (if exist in the dataset)]}
+
+        2.create dict that map DOID to its corresponding uniq CUIs
+            :{DOID: uniq_CUIs}
+
+        3. collect CUIs that can be mapped to DOID in step 2
+            : this is the number of member in the classes.
+
+        4. add class label to gene_disease_1000.txt
+             >> also create class label to all of the instances in gene_disease.tsv
+                :have i created the file? if i did what is it called?
+             : {label: [lsit of cuis]} obtained in step 3
+
 =======================
 === Doing
 =======================
+> push to github
+    :ignore dataset folder.
+
+> re-factor map_umls.py then moving on to plotting them
+> list out method that need to be adjusted before ploting them
+> plot gene_disease_50000_label_no_None.txt
+    >> add class methods that do the following
+        : add color according to class_label in which node belong
+            :: node_label (cuis) vs class_label (DOID)
+                >>>should I have option to plot both of them? I think it should have both optoin
+        : plot graph with labels nodes color.
+
+> try using gene_disease_50000_label_no_None.txt with keras-GCN
+    :figure out a way to feed my data into Graph Convolutional Neural network i have created
+    >> if it works and produce promising result,
+        proceed to add kers-GCN to DisGeNER.
+        :Do I need to plot to get result?
+
+> In all_gene_disease_pmid_association.py ( I should run this at fau)
+    >>use gene_disease_uniq_DO_mapping to create /generated/all_gene_disease_pmid_no_None.txt
+    >> after than, use map_umls.py to create /demo/all_gene_disease_pmid.txt
+
+
+
+## spring 2019 final project tasks (check if I have finished all of them)
 1. List of copd related diseas and genes extracted (disease names, genee names, also number of members in each category)
 2. Show the copd related gene neworks, disae networks, and gene-disease networks (including network characteristics, such as degree distributions)
 3. Find a community of (gene-disease), report who are the genes and diseases in these communities.
 
+====================
+===Error
+====================
 >bipartite = True
 vertices ('pmid', 'geneId')
 all_Vertice 551
@@ -84,8 +190,12 @@ HERE>> figure out how to combine plot_networkx and plot_subgrpah
     >network community detection
     >link-prediction
 
+ValueError: 'c' argument has 1242 elements, which is not acceptable for use with 'x' with size 621, 'y' with size 621.
+
+> make vertices_flat, color_legend, global
 >what is the different between get_node_color and getColor_list
 > what is setup() for??
+
 
 >report_Graph_properties( G, degree_dist = None)
 
@@ -226,64 +336,3 @@ HERE>> figure out how to combine plot_networkx and plot_subgrpah
         >> save number of iteration to be uses as path length from COPD later on
 
     :repeat the process until no new info is collected
-
-========================
-== ToDo
-========================
->All gene disease pmid assoiciations dataset
-##ToDo
-1. detect geneSymbol, geneID, diseaseID, DPI(?), DSI(?), pmid(?) for diseaseName = COPD, and collect them
-We may need DPI, DSI, pmid to detect in "sentence" of Pubannotator dataset
-
->Pubannotator dataset
-##ToDo
-1. detect geneID and diseaseID for COPD, and collect them
-2. For all instance retreived from #1, Find gene, disease that are mention in "sentence" col, and collect them
-
-#HERE 3. For all instance retreive from #2, Find gene, disease that are mentioned in "sentence" col, and collect them.
-4 repeat, until no new relationship between disease-gene can be identified
-5. We may used number of instances one entity takes to be mentioned in "sentence" of other. as shortest path between the two entity.
-Combine the two
-
-Combine/Concat both above result, into one Matrix
-
-======================
-== data info
-======================
-> The information is separated by tab. When field are concatenated, they are separated by";"
-
->all_gene_disease_pmid_associations.tsv.gz		=> All Gene-Disease-PMID associations in DisGeNET
-
-The columns in the files are:
-0. geneId 		-> Entrez Gene Identifier
-1. geneSymbol	-> Official Gene Symbol
-2. DSI		-> The Disease Specificity Index for the gene
-3. DPI		-> The Disease Pleiotropy Index for the gene
-4. diseaseId 	-> UMLS concept unique identifier
-5. diseaseName 	-> Name of the disease
-6. diseaseType  	-> The DisGeNET disease type: disease, phenotype and group
-7. diseaseClass	-> The MeSH disease class(es)
-8. diseaseSemanticType	-> The UMLS Semantic Type(s) of the disease
-9. score		-> DisGENET score for the Gene-Disease association
-10. EI		-> The Evidence Index for the Gene-Disease association
-11. YearInitial	-> First time that the Gene-Disease association was reported
-12. YearFinal	-> Last time that the Gene-Disease association was reported
-13. pmid		-> Publication reporting the Gene-Disease association
-14. source		-> Original source reporting the Gene-Disease association
-
->ToDo
-1. detect geneSymbol, geneID, diseaseID, DPI(?), DSI(?), pmid(?) for diseaseName = COPD
-
->PubAnnotator
-pmid
-section
-sentence_number
-geneId
-geneoffset
-diseaseId
-deseaseoffsets
-sentence
-
->ToDO
-1. detect geneID and diseaseID for COPD
-2. detect anything related to COPD in sentence that is not already detect by #1

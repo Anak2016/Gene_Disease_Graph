@@ -1,13 +1,8 @@
-import networkx as nx
-import matplotlib.pyplot as plt
-G=nx.complete_graph(5)
+import glob
+import os
 
-nx.draw(G)
-plt.show()
+path = os.getcwd()
 
-print(nx.triangles(G,0))
+files = [f for f in glob.glob(path + "**/*.*", recursive=True)]
 
-print(nx.triangles(G))
-
-print(list(nx.triangles(G,(0,1)).values()))
-
+print(len(files))
