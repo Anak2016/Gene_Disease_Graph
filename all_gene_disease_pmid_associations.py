@@ -1,6 +1,7 @@
 from PubAnnotator import *
 import re
 import time
+import pandas as pd
 # printFile("uniq.txt")
 
 class gene_disease_pmid:
@@ -23,7 +24,14 @@ class gene_disease_pmid:
         create dictionary containing {label: [list of CUIs]}
         from uniq_CUIs_label_mappings.txt
 
-        :param file_path: file containing  disease_mappings_umls/uniq_CUIs_label_mappings.txt
+        :param file_path: file containing the following format
+
+                diseaseId,class
+                cui1,doid
+                cui2,doid
+                ..., ...
+
+                such as disease_mappings_umls/uniq_CUIs_label_mappings.txt
         :return: dict:{label: [list of CUIs]}
         '''
         uniq_cui_label_dict = {}
@@ -40,63 +48,76 @@ class gene_disease_pmid:
 
         return uniq_cui_label_dict
 
-    def writeToFile(self,file_name, dictionary, unique = True):
+    def appendClassToFile(self, save_path, uniq_cui_label_dict, dictionary):
         '''
-        only write row of values of selected columns that
-        have mapping to gene_disease_uniq_DO_mapping.txt
-        :param file_name:
+        use gene_disease_uniq_DO_mapping.txt to map uniq_cui_label_dict to labels presented in the txt file.
+
+        :param save_path:
+        :param uniq_cui_label_dict:
         :param dictionary:
         :return:
         '''
-        uniq_cuis_label_mapping_file_path = 'dataset/disease_mappings_umls/uniq_CUIs_label_mapping.txt'
+        all_DO_list = [val for val_list in uniq_cui_label_dict.values() for val in val_list]
+        cui2label_dict = {val: key for key, val_list in uniq_cui_label_dict.items() for val in val_list}
+        # add class here
+        label_list = []
+        with open(save_path, "w") as f:
+            df = pd.DataFrame.from_dict(dictionary)
+            key = None
+            for i, col in enumerate(df.columns):
+                if col == 'diseaseId':
+                    key = i
+            for row in range(df.shape[0]):
+                cui = df.iloc[row, key]
+                try:
+                    label_list.append(cui2label_dict[cui].strip('\n'))
+                except:
+                    label_list.append("None")
+
+            df['class'] = label_list
+            df = df.loc[df['diseaseId'].isin(all_DO_list)]
+            csv = df.to_csv(index=False)
+            f.write(csv)
+
+    def writeToFile(self,save_path, dictionary, unique = False, **kwargs):
+        '''
+        (argument name is strange so please ignore and read param description)
+        write row of values of selected columns that
+        have mapping to gene_disease_uniq_DO_mapping.txt
+
+        :param file_name: location to save file
+        :param dictionary: any dict
+        :param selected_dict:
+            dict whose dict[key][i] correspond to the same instance where key is any keys in dict
+            therefore, selected_dict must have the same len for all val.
+        :return:
+        '''
+
+        #if uniq_cuis_label_mapping are specifiied
+        if list(kwargs.keys())[0] == 'uniq_cuis_label_mapping_file_path':
+            uniq_cuis_label_mapping_file_path = list(kwargs.values())[0]
+        else:
+            uniq_cuis_label_mapping_file_path = 'dataset/disease_mappings_umls/uniq_CUIs_label_mapping.txt'
+        # print(uniq_cuis_label_mapping_file_path)
+        # exit()
         uniq_cui_label_dict = self.get_CUI_lable_mapping(uniq_cuis_label_mapping_file_path)
 
         #fix all_do_lsit and all_label_list
         all_DO_list = [val for val_list in uniq_cui_label_dict.values() for val in val_list]
+
         all_label_list = [val for val in uniq_cui_label_dict.keys()]
         print("len of all_DO_list =",len(all_DO_list))
         print("len of all_label_list = ", len(all_label_list))
 
-        with open(file_name,"w") as f:
-            # f.write(str(copd_dict))
-            cui_ind_list = []
-            qualify_label_list = []
+        if unique:
+            with open(save_path,'w') as f:
+                for key, val_list in dictionary.items():
+                    sent = ','.join([key]+val_list)
+                    f.write(sent)
+                    f.write('\n')
+        else:
+            self.appendClassToFile(save_path,uniq_cui_label_dict, dictionary)
 
-            # I could have just use dataframe, but its for my future self to do that. (sry bro)
-            # get index of cui that has mapping to DO given in uniq_cuis_label_mapping.tx
-            count = 0
-            for i, (key, val_list) in enumerate(dictionary.items()):
-                if key == 'diseaseId':
-                    for j,cui in enumerate(dictionary[key]): # for each cui
-                        # count += 1 # 1000
-                        if cui in all_DO_list: # check if cui has mapping
-                            # count += 1 # expect 32, but get 224
-                            # check label in which cui belongs to
-                            for label in uniq_cui_label_dict.keys():
-                                for cui_map in uniq_cui_label_dict[label]:
-                                    if cui == cui_map:
-                                        count += 1
-                                        # print(cui)
-                                        assert cui == list(dictionary[key])[j], print(cui,list(dictionary[key])[j])
-                                        cui_ind_list.append(j)
-                                        label = label.strip('\n')
-                                        qualify_label_list.append(label)
-
-            # sanity check that len of each keys are the same
-            print("count qualify cui:", count) #expecting 32 get 224
-            # print(set(dictionary['diseaseId']))
-            print(len(dictionary['diseaseId'])) # 1000 as expect
-            # exit()
-
-            for key in dictionary.keys():
-                qualify_val = []
-                for ind in cui_ind_list:
-                        qualify_val.append(list(dictionary[key])[ind])
-                sent = ",".join(list([key])+ qualify_val)
-                f.write(sent)
-                f.write('\n')
-
-            f.write(','.join(['class']+qualify_label_list))
 
     def readFile(self,file_name):
         dictionary = {}
@@ -295,7 +316,9 @@ class gene_disease_pmid:
 
 
 
-        # print(gene_disease_Dict) # if this if not work
+        # print(len(gene_disease_Dict['diseaseId']))
+        # print(gene_disease_Dict['diseaseId'])
+        # print("done")
         # exit()
 
     def ConcatWords(self,word_list):
@@ -346,6 +369,13 @@ class gene_disease_pmid:
         print('len of value of all keys are equal ')
 
     def CreateUniq(self, dict, uniq):
+        '''
+        get uniq value of each dict[key] and create dict as followed
+            {key: [list of uniq_value of dict[key]}
+        :param dict: any dict
+        :param uniq: selected keys that will be used to find uniq node
+        :return: temp_uniq: {key: [list of uniq_value of dict[key]}
+        '''
         temp_uniq = {}
         for i,vals in enumerate(dict.values()):
             # print(len(vals)) # 9
@@ -358,7 +388,9 @@ class gene_disease_pmid:
             print("len(temp_uniq[{:s}]): ".format(key) , len(temp_uniq[key]))
 
         self.Validate_len_equal(dict)
+        # self.Validate_len_equal(temp_uniq) #uniq value of each col will not be equal
         print("value of all uniq_keys are equal")
+
         # exit()
         # dict.update(temp_uniq)
         return temp_uniq
@@ -372,11 +404,12 @@ class gene_disease_pmid:
 
 
     def run(self):
+
         # self.readFile('gene_disease_data.txt')
         # exit()
         gene_disease_Dict = self.gene_disease_dict
         data = self.readRawData("./dataset/disease_gene/disease_gene.tsv")
-        gene_disease_association = gene_disease_pmid(gene_disease_Dict) # why would I call a class within a class like this??
+        gene_disease_association = gene_disease_pmid(gene_disease_Dict) # why would I call a class within a class like this?? forgot to change.
 
 
         start = time.time()
@@ -445,6 +478,11 @@ class gene_disease_pmid:
                         gene_disease_Dict[key][i] = res
 
         selected_dict = {key: gene_disease_Dict[key] for key in selected_keys_list}
+        # x = [ len(set(val)) for val in selected_dict.values()]
+        # print(x)
+        # print(len(set(selected_dict['diseaseId'])))
+        # print(len(selected_dict['diseaseId']))
+        # exit()
 
         gene_disease_Dict = selected_dict
 
@@ -465,22 +503,29 @@ class gene_disease_pmid:
         # ###################3
 
         # ## create dataset containing all of data from disease_gene.tsv
-
-        # HERE>> run this overnight.
-        self.writeToFile("all_gene_disease_pmid_data.txt", gene_disease_Dict) # too long
+        # self.writeToFile("all_gene_disease_pmid_data.txt", gene_disease_Dict) # too long
         end = time.time()
         total = end-start
 
-        # exit()
-        ## create dataset contianing the first 1000 data from disease_gene.tsv
-        # self.writeToFile("dataset/generated_dataset/gene_disease_1000_FIXED_ERROR.txt",gene_disease_1000)
-        # self.writeToFile("dataset/generated_dataset/gene_disease_50000.txt",gene_disease_50000)
-        # self.writeToFile("dataset/generated_dataset/something.txt",gene_disease_1000)
+        # HERE>> write to test file to inspect result
+        t0 = time.time()
 
-        # ## create dataset containing uniq value from each selected column's key
-        # self.writeToFile("dataset/generated_dataset/gene_disease_uniq.txt",gene_disease_uniq)
+        ##currently doesnot exist, it must be generated first from copd_terminology_extract.py
+        uniq_cuis_label_mapping_file_path = 'dataset/disease_mappings_umls/copd_uniq_cuis_label_mapping.txt'
+        self.writeToFile("dataset/generated_dataset/copd_label.txt",gene_disease_Dict, uniq_cuis_label_mapping_file_path = uniq_cuis_label_mapping_file_path)
+        t1 = time.time()
+        total = t1 - t0
+        print(f"writing to dataset/generated_dataset/copd_label.txt takes {total}")
+        exit()
+        ## create dataset contianing the first 1000 data from disease_gene.tsv
+        # self.writeToFile("dataset/generated_dataset/gene_disease_50000_no_None.txt",gene_disease_50000)
+        # self.writeToFile("dataset/generated_dataset/gene_disease_1000_no_None.txt",gene_disease_1000)
+
         # exit()
-        return gene_disease_Dict,gene_disease_uniq, total
+        ## create dataset containing uniq value from each selected column's key
+        # self.writeToFile("dataset/generated_dataset/gene_disease_uniq.txt",gene_disease_uniq, unique=True)
+        exit()
+        return gene_disease_Dict, total
 
 if __name__ == '__main__':
 
@@ -488,7 +533,7 @@ if __name__ == '__main__':
     gene_disease_association = gene_disease_pmid(gene_disease_Dict)
 
     # start = time.time()
-    gene_disease_data= gene_disease_association.run()
+    gene_disease_data, totoal_time = gene_disease_association.run()
 
     # end = time.time()
     # total = end - start

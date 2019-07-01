@@ -1,131 +1,65 @@
 > Chronic Obstructive Pulmonary Disease
 
+>columns
 (number) (number or words) (number) (number) (number#number) (words anf the rest of the sentence)
-=======================
-== useful INFO
-=======================
-common cols
->pmid
->DiseaseId
->geneID
-
-uniq sources from gene_disease
-> GENOMICS_ENGLAND,CTD_human,MGD,PSYGENET,GWASDB,CLINVAR,CLINGEN,RGD,CTD_mouse,BEFREE,CTD_rat,GWASCAT,UNIPROT,LHGDN
-
-======================
-=== dataset information
-======================
->info of gene_disease_uniq dataset
-    excluded: DSI, DPI, diseaseType, diseaseSemanticType, score, EI, YearInitial, YearFinal
-
-    >1137270 instances
-
-    uniq value of the following columns
-    geneId, geneSymbol, diseaseId, diseaseName, diseaseClass, pmid,   source
-    16628   16624       9463       9434         815           398198  14
-        note: I skipped some row that has no diseaseClass in it.[pattern to extract other col's vals are not clear]
-        >> len of cols are equal because I rolled back those cols in which its value is empty.
-
->create unique  pmid, geneId, diseaseId (Pubannotator.py)
-    excluded: section, sentence_number, geneoffset, diseaseoffsets, sentence
-    :Does geneId, diseaseId  used in both files have the same standard? If not figure out how to link them
-    :2234 instances
-    :1668 uniq_instances
-    :pmid = 698, geneID = 512, geneID = 117 (uniq)
-    Question:
-        What is gene off set?
-
-> There are 6110 gene_disease_uniq mapping to DO.
-        :There are 15675 mapping to DO
-        :There are 97501 mapping in total.
-            >>some of the vocab source map to the same CUIs
-
-> get parentId of the top 20 maximum member count
-    :check for all 3 files: parent, parent_parent, parent_intersect
-    >> uniq class label must not be children or parent of other class label.
-        :how to check if the lable is a children or parent of the other class label?
-
-    :mapp of gene_disease.tsv is as shown below
-    >> uniq_CUIs -> DOID -> DOID parent
-
-    :selected class labels
-       >> len = 16 classes label -> 14 is legal, 2 is not.
-            :225 and 1826 are not legal
-
-       >>0050736,225,0050737,936,37,934,2256,0080015,0050338,5614,9252,1826,0050889,2978,423,331,870
-           :uniq children_DOID in order: [64, 62, 19, 27, 47, 16, 26, 25, 22, 20, 3, 11, 11, 12, 8]
-
-        >0050736    autosomal dominant disease
-            :151 DOID
-        NO >225        syndrome
-                :112 DOID
-        >0050737    autosomal recessive disease
-            :93 DOID
-        >936        brain disease
-            :71 DOID
-        >37         skin disease
-            :68 DOID
-        >934        viral infectious disease
-            :59 DOID
-        >2256       osteochondrodysplasia (developmental disorders of the skeletal system)
-            :50 DOID
-        >0080015    physical disorder
-            :50 DOID
-        >0050338    primary bacterial infectious disease
-            :48 DOID
-        >5614       eye disease
-            :47 DOID
-        NO >1826       epilepsy (children 936:brain disease)
-                :46 DOID
-        >9252       amino acid metabolic disorder
-            :42 DOID
-
-        >0050889    non-syndromic intellectual disability
-            :42 DOID
-        >2978       carbohydrate metabolic disorder
-            :42 DOID
-        >423        myopathy
-            :35 DOID
-        >870        neuropathy
-            :34 DOID
-
-        OTHER CODE IN SORTED ODER: 331 1289 1279 480
-
-    >>step to collect dataset that belongs to the given classes
-        1.create dict to map DOIDs that have the same parent or itself exists in the dataset
-            :{parent_DOID: [DOID of parent's children, or the parent_DOID itself (if exist in the dataset)]}
-
-        2.create dict that map DOID to its corresponding uniq CUIs
-            :{DOID: uniq_CUIs}
-
-        3. collect CUIs that can be mapped to DOID in step 2
-            : this is the number of member in the classes.
-
-        4. add class label to gene_disease_1000.txt
-             >> also create class label to all of the instances in gene_disease.tsv
-                :have i created the file? if i did what is it called?
-             : {label: [lsit of cuis]} obtained in step 3
 
 =======================
 === Doing
 =======================
-> push to github
-    :ignore dataset folder.
+> draw bipartite layout
+    >>require me to fix lots of function such as vertices flat, getEdge and so on...
+        :put the version of circular on github
+        :plan out carefully on what to do. what to change? this make cause crashed so becareful
+    >>make node size proportion to its degree.
 
-> re-factor map_umls.py then moving on to plotting them
-> list out method that need to be adjusted before ploting them
-> plot gene_disease_50000_label_no_None.txt
-    >> add class methods that do the following
-        : add color according to class_label in which node belong
-            :: node_label (cuis) vs class_label (DOID)
-                >>>should I have option to plot both of them? I think it should have both optoin
-        : plot graph with labels nodes color.
+> figure out what subplot do?
+    >> we must modify plot_networkx(bipartite = True) to have bipartite layer?
+    >> change plot_networkx(bipartite = True) so that it dose the following
+            1.  top subplot = graph label by col_name
+                bottom subplot = bipartite graph label by group members
 
-> try using gene_disease_50000_label_no_None.txt with keras-GCN
-    :figure out a way to feed my data into Graph Convolutional Neural network i have created
-    >> if it works and produce promising result,
-        proceed to add kers-GCN to DisGeNER.
-        :Do I need to plot to get result?
+
+> create function that draw bipartite without creating subplot graph.
+    >> plot_subplot vs plot_bipartite
+    >> create new parameter to draw subplot vs not drwing subplot
+>community detection = Flase + bipartite = True
+    >> does not show bipartite subplot, it only show grpah with nodes labels by columns names
+
+Entrez Gene -> UniProtKB -> GeneOntology
+> use file in the following folder to Entrez Gene -> UniProtKB
+    folder: C:\Users\Anak\Desktop\NSF project\Medical data\mapa_geneid_4_uniprot_crossref
+> use the following url to UniProtKB -> GeneOntology
+    url: https://www.ebi.ac.uk/QuickGO/
+    or
+    url: https://www.uniprot.org/uploadlists/ (i use this)
+    Question:
+        Is there a place to upload file to UniProtKB -> GeneOntology
+
+> read "How do I find the annotations (mapings) for Entrez ,NCBI, or other IDs"
+    url: http://geneontology.org/docs/faq/
+> read Gene Help: Integrated Access to Gene of GEnomes in the REence sequence collection
+    url: https://www.ncbi.nlm.nih.gov/books/NBK3841/#EntrezGene.Quick_Start
+
+> figure out how to label geneid
+    >> GeneOntology with relation "part of", "has part", "is a"
+> figure out how to use GeneOntology API to access relation "part of", "has part", "is a" of geneId
+    >> if there is a way to use API, move to the next step
+    >> if I can't find a way to use API, tell dr Zhu and ask him for guidance.
+> in case that there is a way to use geneOntology APi
+    >> 1. map Entrez_id to its GO then
+    >> 2. use GO to map to its relation
+    >> 3. find label for GO
+
+
+#####FIX PLOTTING
+> in bipartite = True, there should be 2 options.
+    1. use community detection and plot color of nodes in each community
+    2. plot graph where gene has 1 color and disease has another color
+
+> fix subplot method so that it shows legend's and color its member's node.
+    >>fix: mismatch of number of color_ist and nodes in G
+        line: 497 in plotGraph_with_legend()
+
 
 > In all_gene_disease_pmid_association.py ( I should run this at fau)
     >>use gene_disease_uniq_DO_mapping to create /generated/all_gene_disease_pmid_no_None.txt
@@ -141,13 +75,6 @@ uniq sources from gene_disease
 ====================
 ===Error
 ====================
->bipartite = True
-vertices ('pmid', 'geneId')
-all_Vertice 551
-
->bipartite = False
-vertices ['pmid', 'geneId', 'diseaseId']
-vertices_flat 621
 
 > createEdges return unique pair.
 > bipartite = False has more edges than bipartite = True
@@ -158,7 +85,6 @@ vertices_flat 621
 > create a function that input = keys, output = list of each key's member
 > pass the vertices whose key = pair
     :should i use key to choose vertices?
-
 
 > def plot_bipartite = 466
 

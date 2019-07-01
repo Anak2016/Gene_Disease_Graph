@@ -1,0 +1,113 @@
+###################################3
+THIS FILE EXPLAINS THE FOLLWOING
+1. EXPLAIN PURPOSE OF .PY FILE.
+2. HOW DATASET IS GENERATED
+3. INFOMATION ABOUT BIPARTITE COPD COMORBIDITY GRAPH SUCH AS DIAMETERS, CLUSTERING
+###################################3
+
+########################################
+Explains purpose of each .py file
+########################################
+
+1.all_gene_disease_pmid_associations
+	:this file have 2 purposes
+	1.this file is used to create anyfile that directly require value to be extracted directly from disease_gene.tsb
+	2.this file is used to create file with specific label such as disease label
+
+	>it generates the following files 
+		such as generated_dataset/gene_disease_uniq.txt
+			generated_dataset/copd_label.txt
+			
+2.copd_terminology_extract.py
+	>this file requires class of diseaseId to be manually put in
+	>it generates mappings from cuis to doid of selected label that have mapping in disease_gene.tsv.
+
+3. map_umls.py
+	>This file used to generated mapping files such as the following
+		:disease_mppings_umls/gene_disease_uniq_DO_mapping.txt
+	>This file also contains some outdated code thats does the bottom up labeling by collecting parent of all diseaseId recursively until there exist only few number of parents classes, after that we pick the top n-th class as labels
+	>list of the outdated files are as followed
+		:gene_disease_#_DO_mapping.txt 
+		:parent_diseaseId_uniq_DO_mapping.txt
+		:parent_parent_diseaseId_uniq_DO_mapping.txt
+		:parent_parent_valid_diseaseId_uniq_DO.txt
+			>valid indicate that doid has mapping to cuis
+	>This file also contains label from the top down approach 
+		>>code that use top down approach is not yet implemented, because in this case, we only use copd related disease and copd_comorbidity disease just happend to not have the same label as these top down classes
+				
+################################
+Explain step on how dataset is generated
+################################
+
+> all_gene_disease_pmid_associations.py 
+	:create generated_dataset/gene_disease_uniq.txt
+	>>gene_disease_uniq.txt
+		:contains uniq value from each col of disease_gene.tsv. Therefore, number of uniq value in each col  are not the same.
+		:contains 
+				
+> map_umls.py
+	:create gene_disease_uniq_DO_mapping.txt
+	>>gene_disease_uniq_DO_mapping.txt
+		:use generated_dataset/gene_dsease_uniq.txt to map cuis and doid in disease_gene.tsv
+		:contains diseaseId, code
+		where 	diseaseId = cuis contains in disease_gene.tsv
+			code = doid contains in disease_gene.tsv
+
+> manually select copd commobidities to as label by refering to well known research papers
+	:such as Network.medicine.analysis.of.COPD, COPD.Comorbidities.network and more.
+
+> copd_terminology_extract.py
+	:create copd_comorbidities_label.txt,copd_uniq_cuis_label_mapping.txt
+		
+	>>copd_comorbidities_label.txt
+		:contains doid,label
+		where 	doid = doid of children of label doid in DISEASE ONTOLOGY
+			label = doid of the chosen labels
+	>>copd_uniq_cuis_label_mapping.txt
+		:use copd_comorbidities_label.txt to create mapping to cuis in gene_disease_uniq_DO_mapping.txt 
+		:contains diseaseId, code 
+		where 	diseaseId = cuis 
+			code = doid of the chosen labels
+	
+>all_gene_disease_pmid_associations.py 
+	:create copd_label.txt
+	>>copd_label.txt
+		:contains diseasid, geneid and edges(rows) are extracted from 		disease_gene.tsv
+
+
+################################
+INFOMARTION OF BIPARTITE COPD COMORBIDITY GRAPH
+###############################
+{0: 2429, 1: 2429, 2: 61, 3: 61, 4: 19, 5: 6973, 6: 11, 7: 9}
+number of edges = 3687
+number of nodes = geneId + diseaseId= 2429 + 61
+
+diameter = 8
+
+periphery = ['3357', '2294', '187', '2078', '3412', '1373', '141', '2138', '3110', '21', '3407'] 
+
+Graph density = 0.004240106418357166
+
+degree=1 has freq =454
+degree=2 has freq =162
+degree=6 has freq =13
+degree=3 has freq =76
+degree=4 has freq =29
+degree=11 has freq =4
+degree=5 has freq =18
+degree=8 has freq =6
+degree=9 has freq =1
+degree=20 has freq =1
+degree=31 has freq =1
+degree=14 has freq =1
+degree=10 has freq =1
+degree=7 has freq =1
+degree=67 has freq =1
+degree=109 has freq =1
+degree=103 has freq =1
+degree=17 has freq =1
+degree=21 has freq =1
+degree=336 has freq =1
+degree=18 has freq =1
+degree=406 has freq =1
+ 
