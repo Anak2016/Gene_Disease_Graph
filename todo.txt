@@ -6,50 +6,25 @@
 =======================
 === Doing
 =======================
-> draw bipartite layout
-    >>require me to fix lots of function such as vertices flat, getEdge and so on...
-        :put the version of circular on github
-        :plan out carefully on what to do. what to change? this make cause crashed so becareful
-    >>make node size proportion to its degree.
+> How can I add weight between gene and disease?
+    : MCI is used in assigning weight to edges of proteins
+        >>can it be used gene and disease?
+    :
+> create a function to determine find disease distribution of each classs.
+> list features of nodes that can be used as features (before feeding node embedding to it) such as
+    : node degree, centrality, and so on.
+    : this is to observe whether or not the dataset can be learnt and Do adding more features help model learn?
+> writing draft paper.
 
-> figure out what subplot do?
-    >> we must modify plot_networkx(bipartite = True) to have bipartite layer?
-    >> change plot_networkx(bipartite = True) so that it dose the following
-            1.  top subplot = graph label by col_name
-                bottom subplot = bipartite graph label by group members
+copd_terminiology_extract.py
+    > create copd_commorbidities_label.txt
+        : in dataset/disease_mappings.umls
+    > create copd_uniq_cuis.label_mappting.txt
+        : in dataset/diseasemapping_umls
 
-
-> create function that draw bipartite without creating subplot graph.
-    >> plot_subplot vs plot_bipartite
-    >> create new parameter to draw subplot vs not drwing subplot
->community detection = Flase + bipartite = True
-    >> does not show bipartite subplot, it only show grpah with nodes labels by columns names
-
-Entrez Gene -> UniProtKB -> GeneOntology
-> use file in the following folder to Entrez Gene -> UniProtKB
-    folder: C:\Users\Anak\Desktop\NSF project\Medical data\mapa_geneid_4_uniprot_crossref
-> use the following url to UniProtKB -> GeneOntology
-    url: https://www.ebi.ac.uk/QuickGO/
-    or
-    url: https://www.uniprot.org/uploadlists/ (i use this)
-    Question:
-        Is there a place to upload file to UniProtKB -> GeneOntology
-
-> read "How do I find the annotations (mapings) for Entrez ,NCBI, or other IDs"
-    url: http://geneontology.org/docs/faq/
-> read Gene Help: Integrated Access to Gene of GEnomes in the REence sequence collection
-    url: https://www.ncbi.nlm.nih.gov/books/NBK3841/#EntrezGene.Quick_Start
-
-> figure out how to label geneid
-    >> GeneOntology with relation "part of", "has part", "is a"
-> figure out how to use GeneOntology API to access relation "part of", "has part", "is a" of geneId
-    >> if there is a way to use API, move to the next step
-    >> if I can't find a way to use API, tell dr Zhu and ask him for guidance.
-> in case that there is a way to use geneOntology APi
-    >> 1. map Entrez_id to its GO then
-    >> 2. use GO to map to its relation
-    >> 3. find label for GO
-
+all_gene_disease_pmid_associateions.py
+    >create copd_lable.txt
+        : in dataset/generated_dataset
 
 #####FIX PLOTTING
 > in bipartite = True, there should be 2 options.

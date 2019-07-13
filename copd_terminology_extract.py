@@ -224,17 +224,53 @@ def get_children_url(col_names,doid_label_dict, save_path, verbose = False):
     return all_label2leaf_dict, all_leaf2label_dict
 
 def run_cui_label_mapping():
-    doid_label_dict = {'3393': 'coronary artery disease',
-                       '2841': 'Asthma',
-                       '9351': 'diabetes mellitus',
-                       '0060224': 'atrial fibrillation',
-                       '6000': 'congestive heart failure',
-                       '10763': 'hypertension',
-                       '1168': 'familial hyperlipidemia',
-                       '1596': 'mental depression',
-                       '6713': 'cerebrovascular disease'}
+    # todo here>> should I add value that is related to
+    doid_label_dict = {# Respiratory Tract Diseases
+                        "6132": 'bronchitis',
+                        '2841': 'asthma',
+                        "9675": 'pulmonary emphysema',
+                        '10030': 'interstitial emphysema',
+                        '10031': 'hyperlucent lung',
+                        '10032': 'com pensatory emphysema',
+                        # Nutritional and Metabolic Diseases
+                        "9351": 'diabetes mellitus',
+                        "0060611": 'abdominal obesity-metabolic syndrome',
+                        "9970": 'obesity',
+                        '1168': 'familial hyperlipidemia', # need validation
+                        # Musculoskebenign prostatic hyperplasisletal
+                        "11476": 'osteoporosis',
+                        # Respiratory Tract Diseases
+                        '10763': 'hypertension',  # need validation
+                        "6432": 'pulmonary hypertension', #subset of hypertension
+                        "1324": 'lung cancer',
+                        "0050847": 'sleep apnea',
+                        # Hemic and Lymphatic Diseases
+                        "2355": 'anemia',
+                        "8432": 'Polobstructive sleep apneaycythemia',
+                        # Cardiovascular Diseases
+                        "0060224": 'atrial fibrillation',
+                        '6000': 'congestive heart failure',
+                        "3393": 'coronary artery disease',  # it is a most common type of ischemic heart disease.
+                        '6713': 'cerebrovascular disease', # synonyms for stroke
+                        # disease of mental health
+                        "1596": 'mental depression',
+                        "2030": "anxiety disorder",
+                        "0050848":"obstructive sleep apnea",}
 
-    copd_children = {'9675': 'pulmonary emphysema',
+    # doid_label_dict =
+    # doid_label_dict = {'3393': 'coronary artery disease',
+    #                    '2841': 'Asthma',
+    #                    '9351': 'diabetes mellitus',
+    #                    '0060224': 'atrial fibrillation',
+    #                    '6000': 'congestive heart failure',
+    #                    '10763': 'hypertension', #
+    #                    '1168': 'familial hyperlipidemia', #
+    #                    '1596': 'mental depression',
+    #                    '6713': 'cerebrovascular disease'}
+
+    # "3083": 'chronic obstructive pulmonary disease'
+    copd_children = {
+                    "9675": 'pulmonary emphysema',
                      '10030': 'interstitial emphysema',
                      '10031': 'hyperlucent lung',
                      '10032': 'com pensatory emphysema'}
@@ -258,7 +294,10 @@ def run_cui_label_mapping():
     ################
     ## creating {doid : [list_cui]}, {cui: doid}
     ###############
-    gene_disease_uniq_DO_mapping_file_path = 'dataset/disease_mappings_umls/gene_disease_uniq_DO_mapping.txt'
+    from time import gmtime, strftime
+    current_time = strftime("%m_%d_%H_%M", gmtime())
+    print()
+    gene_disease_uniq_DO_mapping_file_path = f'dataset/disease_mappings_umls/gene_disease_uniq_DO_mapping.txt'
 
     t0 = time.time()
     cui2doid_dict, doid2cui_dict = create_cui2doid_dict(
@@ -268,9 +307,10 @@ def run_cui_label_mapping():
     print("total time to run {:s} = {:f} second".format(str(get_children_url.__name__), total), end="\n")
 
     ##################
+    ##################
     ## create {label: [cui]}
     ###############
-    save_path = 'dataset/disease_mappings_umls/copd_uniq_cuis_label_mapping.txt'
+    save_path = f'dataset/disease_mappings_umls/copd_uniq_cuis_label_mapping{current_time}.txt'
 
     t0 = time.time()
     label2cui_dict = create_label2cui_dict(all_label2leaf_dict, doid2cui_dict=doid2cui_dict, save_path=save_path)

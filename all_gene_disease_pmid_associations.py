@@ -114,10 +114,8 @@ class gene_disease_pmid:
                 for key, val_list in dictionary.items():
                     sent = ','.join([key]+val_list)
                     f.write(sent)
-                    f.write('\n')
         else:
             self.appendClassToFile(save_path,uniq_cui_label_dict, dictionary)
-
 
     def readFile(self,file_name):
         dictionary = {}
@@ -511,11 +509,14 @@ class gene_disease_pmid:
         t0 = time.time()
 
         ##currently doesnot exist, it must be generated first from copd_terminology_extract.py
-        uniq_cuis_label_mapping_file_path = 'dataset/disease_mappings_umls/copd_uniq_cuis_label_mapping.txt'
-        self.writeToFile("dataset/generated_dataset/copd_label.txt",gene_disease_Dict, uniq_cuis_label_mapping_file_path = uniq_cuis_label_mapping_file_path)
+        # uniq_cuis_label_mapping_file_path = 'dataset/disease_mappings_umls/copd_uniq_cuis_label_mapping.txt'
+        time_stamp = "07_13_15_29"
+        uniq_cuis_label_mapping_file_path = f'dataset/disease_mappings_umls/copd_uniq_cuis_label_mapping{time_stamp}.txt'
+
+        self.writeToFile(f"dataset/generated_dataset/copd_label{time_stamp}.txt",gene_disease_Dict, uniq_cuis_label_mapping_file_path = uniq_cuis_label_mapping_file_path)
         t1 = time.time()
         total = t1 - t0
-        print(f"writing to dataset/generated_dataset/copd_label.txt takes {total}")
+        print(f"writing to dataset/generated_dataset/copd_label{time_stamp}.txt takes {total}")
         exit()
         ## create dataset contianing the first 1000 data from disease_gene.tsv
         # self.writeToFile("dataset/generated_dataset/gene_disease_50000_no_None.txt",gene_disease_50000)
