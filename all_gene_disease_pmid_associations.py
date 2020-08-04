@@ -508,9 +508,10 @@ class gene_disease_pmid:
         # HERE>> write to test file to inspect result
         t0 = time.time()
 
-        ##currently doesnot exist, it must be generated first from copd_terminology_extract.py
+       ##currently doesnot exist, it must be generated first from copd_terminology_extract.py
         # uniq_cuis_label_mapping_file_path = 'dataset/disease_mappings_umls/copd_uniq_cuis_label_mapping.txt'
-        time_stamp = "07_13_15_29"
+        # time_stamp = "07_13_15_29"
+        time_stamp = "07_13_17_40"
         uniq_cuis_label_mapping_file_path = f'dataset/disease_mappings_umls/copd_uniq_cuis_label_mapping{time_stamp}.txt'
 
         self.writeToFile(f"dataset/generated_dataset/copd_label{time_stamp}.txt",gene_disease_Dict, uniq_cuis_label_mapping_file_path = uniq_cuis_label_mapping_file_path)

@@ -163,6 +163,8 @@ def get_children_url(col_names,doid_label_dict, save_path, verbose = False):
 
                 code = unsearch_doid_list[0] #for each uniq doid code
                 code = code.strip()
+                # print(code)
+                # exit()
                 link = "http://www.disease-ontology.org/api/metadata/doid:%s" % code
                 response = json.loads(requests.get(link).text)
 
@@ -240,7 +242,7 @@ def run_cui_label_mapping():
                         # Musculoskebenign prostatic hyperplasisletal
                         "11476": 'osteoporosis',
                         # Respiratory Tract Diseases
-                        '10763': 'hypertension',  # need validation
+                        '10763': 'hypertension',  # need validation ; Bug This is not correct
                         "6432": 'pulmonary hypertension', #subset of hypertension
                         "1324": 'lung cancer',
                         "0050847": 'sleep apnea',
